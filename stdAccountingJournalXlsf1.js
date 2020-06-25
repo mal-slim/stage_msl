@@ -304,11 +304,11 @@ function getHqlAccountingMovement(iParams) {
 	}
 	if (iParams.get("amountFrom") != null) {
 		hql += " and  accMvt.amount >= :amountFrom";
-		iParamsHql.put("amountFrom", helper.parseLong(iParams.get("amountFrom")));
+		iParamsHql.put("amountFrom", helper.parseNumber(iParams.get("amountFrom")));
 	}
 	if (iParams.get("amountTo") != null) {
 		hql += " and  accMvt.amount <= :amountTo";
-		iParamsHql.put("amountTo", helper.parseLong(iParams.get("amountTo")));
+		iParamsHql.put("amountTo", helper.parseNumber(iParams.get("amountTo")));
 	}
 	if (iParams.get("description") != null) {
 		hql += " and  accMvt.description like :description";
