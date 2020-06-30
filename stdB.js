@@ -36,33 +36,30 @@ uselib(stdBudgetReportLibrary);
  
  var params = reportParamInitialization(source);    
 
-/*
+
 
 var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(helper.getParamValue("budget")));
 
 var DepthTree = getMaxLevel(params, budget) - 1;
 var budgetLevel = getTypeLevel(DepthTree, "Q_BUDGET");
 var atColumn = getColumnLevel(budgetLevel);
-*/
-
-var hql1 = " SELECT bs.id , bs.parent From BudgetStructure bs"
-var hqlResult = helper.executeHqlQuery(hql1, null);
-helper.log("INFO",hqlResult)
-	
-
-
-			 
 
 
 
-
-
- 
 var header = ["Id", "Entity", "Currency", "Status", "Category", "Analytic Type","Entry Date","Amount","Commentary","Cpty","Strategy"];
+header=header.concat(atColumn);
 
 
 
 [hql,paramsHql]=getHqBudgetVersion(params);
+
+structId = getStruct(paramsHql);
+[linkedParent,linkedName]= budgetStructMap();
+
+
+var path = [] ;
+var hashmap = new java.util.HashMap();
+hashmap = recursiv(hashmap,linkedParent,structId,linkedName);
 
 
 
@@ -78,7 +75,42 @@ hqlList.push({
 createHqlReport("stdBudget", hqlList, header);
 
 
-					
+function getStruct(paramsHql)
+{
+	var hql = "SELECT bv.budget.budgetStructure.id from BudgetVersion bv"; 
+	hql+= " where bv.id = :budgetVersionId";
+	var hqlResult = helper.executeHqlQuery(hql, paramsHql);
+	return hqlResult.get(0);
+}
+	
+
+function budgetStructMap(){
+	var linkedParent = new java.util.HashMap();
+	var linkedName = new java.util.HashMap();
+	var hql1 = " SELECT bs.id , bs.parent, bs.nodeIndex, bs.name From BudgetStructure bs"
+	var hqlResult = helper.executeHqlQuery(hql1, null);
+	helper.log("INFO",hqlResult.get(2)[0]);
+	for (var iterator = hqlResult.iterator(); iterator.hasNext();) {
+		var iter = iterator.next();
+		linkedParent.put(iter[0],iter[1]);
+		linkedName.put(iter[0],iter[3]);
+	}
+	return [linkedParent,linkedName];
+}
+
+function recursiv(hashmap,linkParent,parent,linkName)
+{
+	for (var it = linkParent.keySet().iterator(); it.hasNext();) {
+		var item = it.next();
+		if(linkParent.get(item)= parent){
+			var mapLink = new java.util.HashMap();
+
+			hashmap.putAll(recursiv(map_link.put(item,hashmap.get(item).add(linkName.get(item))),linkParent.remove(item),item,linkName));
+		}		
+	}
+	return hashmap ;
+}
+
 function fillRows(iHeader, iHeaderMap, iData) {
 	
 
