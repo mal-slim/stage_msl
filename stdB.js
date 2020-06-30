@@ -17,6 +17,9 @@
 /* ****************************************************************************
  * Java used Package
  * ***************************************************************************/
+
+
+importClass(Packages.com.mccsoft.diapason.util.DiapasonFilter);
 importClass(Packages.com.mccsoft.diapason.excel.util.ExcelRangeResult)
 importClass(Packages.java.text.SimpleDateFormat);
 importPackage(Packages.java.util);
@@ -37,14 +40,15 @@ uselib(stdBudgetReportLibrary);
  var params = reportParamInitialization(source);    
 
 
-
+var atColumn = []
 var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(helper.getParamValue("budget")));
 
 var DepthTree = getMaxLevel(params, budget) - 1;
-var budgetLevel = getTypeLevel(DepthTree, "Q_BUDGET");
-var atColumn = getColumnLevel(budgetLevel);
 
-
+for (var i = new java.lang.Long(1); i <= DepthTree; i++) {
+	atColumn = atColumn.concat(["Q_BUDGET_level_" +i])
+		
+}
 
 var header = ["Id", "Entity", "Currency", "Status", "Category", "Analytic Type","Entry Date","Amount","Commentary","Cpty","Strategy"];
 header=header.concat(atColumn);
@@ -54,11 +58,14 @@ header=header.concat(atColumn);
 [hql,paramsHql]=getHqBudgetVersion(params);
 
 structId = getStruct(paramsHql);
+
+
 [linkedParent,linkedName]= budgetStructMap();
 
-
-var path = [] ;
+ 
+var path = [];
 var hashmap = new java.util.HashMap();
+hashmap.put(structId,path);
 hashmap = recursiv(hashmap,linkedParent,structId,linkedName);
 
 
@@ -87,27 +94,41 @@ function getStruct(paramsHql)
 function budgetStructMap(){
 	var linkedParent = new java.util.HashMap();
 	var linkedName = new java.util.HashMap();
-	var hql1 = " SELECT bs.id , bs.parent, bs.nodeIndex, bs.name From BudgetStructure bs"
+	var hql1 = " SELECT bs.id , bs.parent.id, bs.name From BudgetStructure bs"
 	var hqlResult = helper.executeHqlQuery(hql1, null);
-	helper.log("INFO",hqlResult.get(2)[0]);
 	for (var iterator = hqlResult.iterator(); iterator.hasNext();) {
 		var iter = iterator.next();
-		linkedParent.put(iter[0],iter[1]);
-		linkedName.put(iter[0],iter[3]);
+		nb = iter[0];
+		
+		
+		linkedParent.put(nb,iter[1]);
+		linkedName.put(nb,iter[2]);
 	}
+    
 	return [linkedParent,linkedName];
 }
 
 function recursiv(hashmap,linkParent,parent,linkName)
 {
-	for (var it = linkParent.keySet().iterator(); it.hasNext();) {
-		var item = it.next();
-		if(linkParent.get(item)= parent){
-			var mapLink = new java.util.HashMap();
+    var pathParent= hashmap.get(parent);
 
-			hashmap.putAll(recursiv(map_link.put(item,hashmap.get(item).add(linkName.get(item))),linkParent.remove(item),item,linkName));
-		}		
+	for (var it = linkParent.entrySet().iterator(); it.hasNext();) {
+		var item = it.next();
+	   
+		if(item.getValue()== parent){
+			var mapLink = new java.util.HashMap();
+			var path =pathParent.concat([linkName.get(item.getKey())]);
+			mapLink.put(item.getKey(),path);
+		    var hashmapInter= recursiv(mapLink,linkParent,item.getKey(),linkName);   //pourquoi remove? , quand je met le tout ? , add push
+
+
+
+			hashmap.putAll(hashmapInter);
+		}	
+		
+	
 	}
+	
 	return hashmap ;
 }
 
@@ -136,8 +157,13 @@ function fillRows(iHeader, iHeaderMap, iData) {
 	if(iData[0].getCpty())	
 		row[iHeaderMap.get("Cpty")] = iData[0].getCpty().getShortname();
 	row[iHeaderMap.get("Strategy")] = iData[0].getStrategy();
-
-
+	levelsStructure = hashmap.get(iData[0].getStructure().getId())
+	
+	var iter= 0;
+	for (var i = new java.lang.Long(1); i <= DepthTree; i++) {
+		row[iHeaderMap.get("Q_BUDGET_level_" +i)]= levelsStructure[iter];
+		iter++;
+	}
 
 	var rows = new java.util.ArrayList();
 	rows.add(row);
@@ -226,8 +252,6 @@ function getValidationDate(params){
 		
 	return hqlResult1.get(0);
 }
-
-
 
 
 
