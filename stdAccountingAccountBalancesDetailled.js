@@ -134,6 +134,19 @@ function headerMap(sqlHeader) {
 }
 // A ne pas toucher
 // On remplit une nouvelle hashMap qui contiendra les paramètres, que ça soit Birt ou Excel
+var expressionContextId = helper.getTransientValue("expressionContextId");
+var expressionContextTmp = null; // this value is used as a test
+var expressionContextShortname = null;
+
+if (null != expressionContextId) {
+	expressionContextTmp = helper.load(com.mccsoft.diapason.data.expressionLanguage.ExpressionContext, helper.parseLong(expressionContextId));
+	expressionContextShortname = expressionContextTmp.getShortname();
+}
+if (null != expressionContextTmp) {
+	expressionContextShortname = expressionContextTmp.getShortname();
+} else {
+	expressionContextShortname = "stdAccountingAccountBalancesDetailled";
+}
 var params = null;
 if (source != null) {
 	// Rule called from Birt
@@ -226,6 +239,9 @@ var sql = "SELECT accAcc.shortname  	AS accountSN, \
 						cpty.shortname, \
 						acc_norm.shortname";
 
+
+var cashAccountingAccount = new java.util.HashMap();
+var cashEntity = new java.util.HashMap();
 // This function convert Diapason syntax in sql and replace all parameters
 params.put("accountingNormField", helper.loadProviderReferenceField("accountingAccountAddInfo.accountingNorm").getId());
 sql = helper.processSqlQuery(sql, params);
@@ -251,6 +267,18 @@ range.result = refCursor;
 var sqlHeaderMap = headerMap(sqlHeader);
 var nbScroll = 0;
 while (helper.hasMoreResults()) {
+	
+	var cachedAccAccount = cashAccountingAccount.get(accountingMovement.getAccountingAccount().getShortname());
+	if (cachedAccAccount == null) {
+		cachedAccAccount = helper.eval(expressionContextShortname, iData[0].getAccountingAccount());
+		cashAccountingAccount.put(accountingMovement.getAccountingAccount().getShortname(), cachedAccAccount);
+	}
+	var cachedEntity = cashEntity.get(accountingMovement.getAccountingEntry().getEntity().getShortname());
+	
+	if (cachedEntity == null) {
+		cachedEntity = helper.eval(expressionContextShortname, iData[0].getAccountingEntry().getEntity());
+		cashEntity.put(AccountingMovement.getAccountingEntry().getEntity().getShortname(), cachedEntity);
+	}
 	var entries = helper.getNextResults(1000);
 	range.result.cursor.clear();
 	for (var iterator = entries.iterator(); iterator.hasNext(); ) {
