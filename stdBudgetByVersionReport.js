@@ -156,7 +156,7 @@ function setBudgetVersionOnParams(params) {
 		hql += " and " + helper.buildListFilter("bde.version.currency.id", params.get("currency"));
 		hql += " and bde.version.active = 1";
 		hql += " and " + helper.buildListFilter("bde.version.budget.id", params.get("budget"));
-		hql += " and bde.validationDate = :validationDate";
+		hql += " and bde.version.validationDate = :validationDate";
 		paramsHql2.put("validationDate", getValidationDate(params));
 		var hqlResult = helper.executeHqlQuery(hql, paramsHql2);
 		if (hqlResult.size() > 0)
@@ -177,8 +177,14 @@ function setBudgetVersionOnParams(params) {
 		} else {
 			helper.sendError("There is no current version.");
 		}
-	} else
-		return params.get("budgetVersionId");
+	} else{
+		var hql = "select bde.version from BudgetEntry bde"; 
+	   	hql += " where " + helper.buildListFilter("bde.version.id", params.get("budgetVersionId"));
+	   	var hqlResult = helper.executeHqlQuery(hql,paramsHql2);
+    		if (hqlResult.size() > 0) {
+			return hqlResult.get(0);
+    		}
+	}
 }
 
 //from parameter budgetDate
