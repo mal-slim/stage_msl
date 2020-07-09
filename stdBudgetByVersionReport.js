@@ -36,6 +36,7 @@ uselib(birtValuationLibrary);
  
 var params = reportParamInitialization(source);  
 
+
 var expressionContextId = helper.getTransientValue("expressionContextId");
 var expressionContextTmp = null; // this value is used as a test
 var expressionContextShortname = null;
@@ -150,8 +151,8 @@ function getRequest(iParams)
 	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
 	hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
-	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.customFields.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList"));
-	helper.setUserData(AccountingMovement.accountingAccount,'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
+	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.CustomFields.FieldValue.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList")) ;
+//helper.setUserData(trade,'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
 
 	if(iParams.get("dateType")== "V"){
 		hql += " and  accMvt.valueDate <= :endDate";
@@ -162,6 +163,9 @@ function getRequest(iParams)
 		iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
 		
 	}
-		return [hql,iParamsHql];
+	return [hql,iParamsHql];
  
+
+
 }
+
