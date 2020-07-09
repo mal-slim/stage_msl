@@ -137,33 +137,29 @@ function getContextColumns(contextName) {
 	return array;
 }
 
-/*
-	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.applicativeStatus", ['validated','cancelled']);
-	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.customDictionaryValue.accountingAccountAddInfo.accountingNorm",iParams.get(accountingNormList));
-*/
+
 
 function getRequest(iParams)
 {
 	var iParamsHql = new java.util.HashMap();
 
-	var hql = "from AccountingMovement accMvt";
+	var hql = " from AccountingMovement accMvt";
 	hql+=  " where " + helper.buildListFilter("accMvt.accountingAccount.id", iParams.get("accountingAccountList"));
 	hql += " and " + helper.buildListFilter("accMvt.currency.id", iParams.get("currencyList"));
 	hql += " and " + helper.buildListFilter("accMvt.folder.id", iParams.get("folder"));
 	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
+	hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
+	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.customFields.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList"));
+	helper.setUserData(AccountingMovement.accountingAccount,'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
 
 	if(iParams.get("dateType")== "V"){
 		hql += " and  accMvt.valueDate <= :endDate";
-		iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
-		hql += " and  accMvt.valueDate >= :startDate";
-		iParamsHql.put("startDate", helper.parseDate(iParams.get("startDate")));
+		iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));	
 	}
 	else{
 	    hql += " and accMvt.accountingEntry.accountingDate <= :endDate";
 		iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
-		hql += " and  accMvt.accountingEntry.accountingDate >= :startDate";
-		iParamsHql.put("startDate", helper.parseDate(iParams.get("startDate")));
 		
 	}
 		return [hql,iParamsHql];
