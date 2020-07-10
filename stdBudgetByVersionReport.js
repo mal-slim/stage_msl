@@ -32,10 +32,8 @@ uselib(birtValuationLibrary);
  * @fileOverview <b> Report Header -> Lists all column fields here</b><p>
  * Remember to change along with the corresponding HQL retrieval
  */
- 
- 
-var params = reportParamInitialization(source);  
 
+var params = reportParamInitialization(source);
 
 var expressionContextId = helper.getTransientValue("expressionContextId");
 var expressionContextTmp = null; // this value is used as a test
@@ -50,19 +48,17 @@ if (null != expressionContextTmp) {
 } else {
 	expressionContextShortname = "stdAccountingAccountBalancesDetailled";
 }
-  
-var header = ["currency", "folder","Counterparty","cpty","accountingNorm","InitialSolde","totalCredit","totalDebit","totalFinal","Rate",
-"currencyCtrVal","FinalDebitCtrVal","FinalCreditCtrval","InitSoldeCtrVal","FinalSoldeCtrVal"];
+
+var header = ["currency", "folder", "Counterparty", "cpty", "accountingNorm", "InitialSolde", "totalCredit", "totalDebit", "totalFinal", "Rate",
+	"currencyCtrVal", "FinalDebitCtrVal", "FinalCreditCtrval", "InitSoldeCtrVal", "FinalSoldeCtrVal"];
 
 var header = header.concat(getContextColumns(expressionContextShortname));
-
-
 
 // This array must have same value than query alias. It will order result
 
 
-[hql,paramsHql]=getRequest(params)	;			
-	
+[hql, paramsHql] = getRequest(params);
+
 var hqlList = [];
 hqlList.push({
 	hql: [hql],
@@ -70,61 +66,64 @@ hqlList.push({
 	rowsFunction: fillRows
 });
 
-
 var cashAccountingAccount = new java.util.HashMap();
 var cashEntity = new java.util.HashMap();
 
 createHqlReport("stdAccountingBalance", hqlList, header);
 
-
 function fillRows(iHeader, iHeaderMap, iData) {
-    
+
 	var row = java.lang.reflect.Array.newInstance(java.lang.Object, iHeader.length);
+	var ParamsHql = new java.util.HashMap();
+	var hql2 = "from AccountingAccount ac where ac.shortname= :accountShortname";
+	ParamsHql.put("accountShortname", iData[0]);
+	result2 = helper.executeHqlQuery(hql2, ParamsHql);
 
-	if (iData[0].getCurrency() != null)
-		row[iHeaderMap.get("currency")] = iData[0].getCurrency().getShortname();
-	
-	if (iData[0].getFolder() != null)
-		row[iHeaderMap.get("folder")] = iData[0].getFolder().getShortname();
+	var iParamsHql1 = new java.util.HashMap();
+	var hql1 = "from Entity en where en.shortname= :entityShortname";
+	iParamsHql1.put("entityShortname", iData[1]);
+	result1 = helper.executeHqlQuery(hql1, iParamsHql1);
 
-	if (iData[0].getCpty() != null)
-		row[iHeaderMap.get("cpty")] = iData[0].getCpty().getShortname();
+	row[iHeaderMap.get("Rate")] = iData[4];
+	row[iHeaderMap.get("totalDebit")] = iData[5];
+	row[iHeaderMap.get("totalCredit")] = iData[6];
+
+
+	if (iData[2] != null)
+		row[iHeaderMap.get("currency")] = iData[2];
+
 	
-	row[iHeaderMap.get("accountingNorm")] = helper.getUserData(iData[0].getAccountingAccount(),'accountingAccountAddInfo.accountingNorm').getShortname();
-	
-	var cachedAccAccount = cashAccountingAccount.get(iData[0].getAccountingAccount().getShortname());
+
+	if (iData[3] != null)
+		row[iHeaderMap.get("cpty")] = iData[3];
+
+	row[iHeaderMap.get("accountingNorm")] = helper.getUserData(result2.get(0), 'accountingAccountAddInfo.accountingNorm').getShortname();
+
+	var cachedAccAccount = cashAccountingAccount.get(iData[0]);
 	if (cachedAccAccount == null) {
-		cachedAccAccount = helper.eval(expressionContextShortname, iData[0].getAccountingAccount());
-		cashAccountingAccount.put(iData[0].getAccountingAccount().getShortname(), cachedAccAccount);
+		cachedAccAccount = helper.eval(expressionContextShortname, result2.get(0));
+		cashAccountingAccount.put(iData[0], cachedAccAccount);
 	}
-	var cachedEntity = cashEntity.get(iData[0].getAccountingEntry().getEntity().getShortname());
+	var cachedEntity = cashEntity.get(iData[1]);
 	if (cachedEntity == null) {
-		cachedEntity = helper.eval(expressionContextShortname, iData[0].getAccountingEntry().getEntity());
-		cashEntity.put(iData[0].getAccountingEntry().getEntity().getShortname(), cachedEntity);
+		cachedEntity = helper.eval(expressionContextShortname, result1.get(0));
+		cashEntity.put(iData[1], cachedEntity);
 	}
 
 	completeRowFromMap(iHeaderMap, cachedAccAccount, row);
 	completeRowFromMap(iHeaderMap, cachedEntity, row);
-	
-
 
 	var rows = new java.util.ArrayList();
 	rows.add(row);
 	return rows;
 }
 
-
-
-
-
-
 function completeRowFromMap(iHeaderMap, iMap, oRow) {
-	for (var itM = iMap.entrySet().iterator(); itM.hasNext();) {
+	for (var itM = iMap.entrySet().iterator(); itM.hasNext(); ) {
 		var entry = itM.next();
 		oRow[iHeaderMap.get(entry.getKey())] = entry.getValue();
 	}
 }
-
 
 function getContextColumns(contextName) {
 	var hql = "select e.shortname from ExpressionContext ex inner join ex.expressions e where ex.shortname = :contextName and ex.status = 'actual' and ex.active = 1 order by e.shortname";
@@ -138,34 +137,59 @@ function getContextColumns(contextName) {
 	return array;
 }
 
-
-
-function getRequest(iParams)
-{
+function getRequest(iParams) {
 	var iParamsHql = new java.util.HashMap();
 
-	var hql = " from AccountingMovement accMvt";
-	hql+=  " where " + helper.buildListFilter("accMvt.accountingAccount.id", iParams.get("accountingAccountList"));
+	var hql = "select accMvt.accountingAccount.shortname,accMvt.accountingEntry.entity.shortname,accMvt.currency.shortname,\
+	accMvt.cpty.shortname,sum(accMvt.amount * accMvt.sign ),sum(am.amount * am.sign ),sum(am.amount* m.sign) "; 
+
+	hql+= " from AccountingMovement accMvt, AccountingMovement am, AccountingMovement m  ";
+	hql += " where " + helper.buildListFilter("accMvt.accountingAccount.id", iParams.get("accountingAccountList"));
 	hql += " and " + helper.buildListFilter("accMvt.currency.id", iParams.get("currencyList"));
-	hql += " and " + helper.buildListFilter("accMvt.folder.id", iParams.get("folder"));
 	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
 	hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
-	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.CustomFields.FieldValue.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList")) ;
-//helper.setUserData(trade,'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
-
+	
+	hql += " and " + helper.buildListFilter("am.accountingAccount.id", iParams.get("accountingAccountList"));
+	hql += " and " + helper.buildListFilter("am.currency.id", iParams.get("currencyList"));
+	hql += " and " + helper.buildListFilter("am.cpty.id", iParams.get("cptyList"));
+	hql += " and " + helper.buildListFilter("am.accountingEntry.entity.id", iParams.get("entityList"));
+	hql += " and am.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
+	
+	hql += " and " + helper.buildListFilter("m.accountingAccount.id", iParams.get("accountingAccountList"));
+	hql += " and " + helper.buildListFilter("m.currency.id", iParams.get("currencyList"));
+	hql += " and " + helper.buildListFilter("m.cpty.id", iParams.get("cptyList"));
+	hql += " and " + helper.buildListFilter("m.accountingEntry.entity.id", iParams.get("entityList"));
+	hql += " and m.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
+	
+	
+	//	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.CustomFields.FieldValue.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList")) ;
+	//helper.setUserData(trade,'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
+	
 	if(iParams.get("dateType")== "V"){
-		hql += " and  accMvt.valueDate <= :endDate";
-		iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));	
+	    hql+= " and accMvt.valueDate < :startDate" ;
+	    hql+= " and am.valueDate > :startDate" ;
+		hql += " and  am.valueDate <= :endDate";
+		hql+= " and m.valueDate > :startDate" ;
+		hql += " and m.valueDate <= :endDate";
 	}
 	else{
-	    hql += " and accMvt.accountingEntry.accountingDate <= :endDate";
-		iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
-		
-	}
-	return [hql,iParamsHql];
- 
+	    hql+= " and accMvt.accountingEntry.accountingDate < :startDate" ;
+	    hql += " and am.accountingEntry.accountingDate <= :endDate";
+	    hql+= " and am.accountingEntry.accountingDate  > :startDate" ;
+	    hql += " and m.accountingEntry.accountingDate <= :endDate";
+	    hql+= " and m.accountingEntry.accountingDate  > :startDate" ;
 
+	}
+	iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
+    iParamsHql.put("startDate", helper.parseDate(iParams.get("startDate")));
+
+    hql+= " and m.sign <0"
+    hql+= " and am.sign >0"
+
+
+	hql+= " group by accMvt.accountingAccount.shortname,accMvt.accountingEntry.entity.shortname,accMvt.currency.shortname,\
+		accMvt.cpty.shortname"
+	return [hql, iParamsHql];
 
 }
-
