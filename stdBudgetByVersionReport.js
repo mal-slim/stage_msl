@@ -115,6 +115,11 @@ function fillRows(iHeader, iHeaderMap, iData) {
 	row[iHeaderMap.get("FinalCreditCtrval")] = totalCreditCtrval.get("countervalue");
 	row[iHeaderMap.get("FinalDebitCtrVal")] = totalDebitCtrval.get("countervalue");
 	row[iHeaderMap.get("InitSoldeCtrVal")] = initSoldeCtrVal.get("countervalue");
+	
+	var totalCtrval = initSoldeCtrVal.get("countervalue");
+	totalCtrval = totalCtrval.add(totalDebitCtrval.get("countervalue"));
+	totalCtrval = totalCtrval.add(totalCreditCtrval.get("countervalue"));
+	row[iHeaderMap.get("FinalSoldeCtrVal")] = totalCtrval;
 
 	if (iData[2] != null)
 		row[iHeaderMap.get("currency")] = iData[2];
