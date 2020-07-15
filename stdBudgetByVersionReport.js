@@ -156,7 +156,7 @@ function fillRows(iHeader, iHeaderMap, iData) {
 function balance(iAccountShortname, iEntity, iCurrency,iCpty,type) 
 {
 	var paramsHql = new java.util.HashMap();
-	var hql = "select COALESCE(sum(accMvt.amount* accMvt.sign),0.0) from AccountingMovement accMvt"  //accounting norm 
+	var hql = "select COALESCE(sum(accMvt.amountOrigin* accMvt.sign),0.0) from AccountingMovement accMvt"  //accounting norm 
 	hql+= " where accMvt.accountingAccount.shortname = :accountShortname";
 	hql+= " and accMvt.accountingEntry.entity.shortname = :entityShortname";  //pourquoi on met le norm alors qu'il existe dans accountshortname
 	hql+= " and accMvt.currency.shortname = :currencyShortname";
@@ -237,6 +237,8 @@ function getRequest(iParams)
 	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
 	hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
+	hql += " and " + helper.buildListFilter(" (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and accMvt.accountingAccount.id = fv.dataEntityId)", iParams.get("accountingNormList"));
+
 	//hql += " and " + helper.buildListFilter("accMvt.accountingAccount.customFields.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList"));
 	//helper.setUserData(aAccountingAccount(),'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
 
