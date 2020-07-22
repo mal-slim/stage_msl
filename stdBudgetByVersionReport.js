@@ -193,7 +193,7 @@ function setBudgetVersionOnParams(params) {
 		if (hqlResult.size() > 0)
 			return hqlResult.get(0);  
 		else 
-			helper.sendError("no validationDate superior then budgetDate ");
+			helper.sendError("there is no version, all validationDates are prior to budgetDate");
 		
 	} else if (StringUtils.isNotBlank(params.get("budgetVersionId")) == false
 		 && StringUtils.isNotBlank(params.get("budgetDate")) == false) { //on prend la version current
