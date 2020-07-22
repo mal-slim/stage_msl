@@ -37,7 +37,7 @@ uselib(birtValuationLibrary);
 var params = reportParamInitialization(source);  
 
 var expressionContextId = helper.getTransientValue("expressionContextId");
-var expressionContextTmp = null; // this value is used as a test
+var expressionContextTmp = null;
 var expressionContextShortname = null;
 
 if (null != expressionContextId) {
@@ -60,10 +60,9 @@ var valuationCurrency = helper.load(Packages.com.mccsoft.diapason.data.Currency,
 var quotationType = helper.load(Packages.com.mccsoft.diapason.data.userData.CustomDictionaryValue, new java.lang.Long(params.get("quotationType")));
 var quotationDate = helper.parseDate(params.get("quotationDate"));
 
-// This array must have same value than query alias. It will order result
 
 
-[hql,paramsHql]=getRequest(params)	;			
+[hql,paramsHql]=getAccountingAccountBalance(params)	;			
 	
 var hqlList = [];
 hqlList.push({
@@ -71,7 +70,6 @@ hqlList.push({
 	hqlParams: paramsHql,
 	rowsFunction: fillRows
 });
-
 
 var cashAccountingAccount = new java.util.HashMap();
 var cashEntity = new java.util.HashMap();
@@ -98,9 +96,9 @@ function fillRows(iHeader, iHeaderMap, iData) {
 
 
 
-	var totalCredit =balance(iData[0],iData[1],iData[2],iData[3],"totalCredit");
-	var totalDebit = balance(iData[0],iData[1],iData[2],iData[3],"totalDebit");
-	var InitialSolde =  balance(iData[0],iData[1],iData[2],iData[3],"initSolde");
+	var totalCredit =computeBalance(iData[0],iData[1],iData[2],iData[3],"totalCredit"); 
+	var totalDebit = computeBalance(iData[0],iData[1],iData[2],iData[3],"totalDebit");
+	var InitialSolde =  computeBalance(iData[0],iData[1],iData[2],iData[3],"initSolde");
 	row[iHeaderMap.get("currencyCtrVal")] = valuationCurrency.getShortname();
 	row[iHeaderMap.get("InitialSolde")] = InitialSolde;
 	row[iHeaderMap.get("totalCredit")] = totalCredit;
@@ -129,6 +127,9 @@ function fillRows(iHeader, iHeaderMap, iData) {
 
 	if (iData[4] != null)
 		row[iHeaderMap.get("currencyOrigin")] = iData[4];
+	if (iData[5] != null)
+		row[iHeaderMap.get("folder")] = iData[5];
+
 
 
 	if (iData[3] != null)
@@ -158,13 +159,13 @@ function fillRows(iHeader, iHeaderMap, iData) {
 }
 
 
-
-function balance(iAccountShortname, iEntity, iCurrency,iCpty,type) 
+//used to compute initSolde, totalCredit, totalDebit according to type
+function computeBalance(iAccountShortname, iEntity, iCurrency,iCpty,type) 
 {
 	var paramsHql = new java.util.HashMap();
-	var hql = "select COALESCE(sum(accMvt.amountOrigin* accMvt.sign),0.0) from AccountingMovement accMvt"  //accounting norm 
+	var hql = "select COALESCE(sum(accMvt.amountOrigin* accMvt.sign),0.0) from AccountingMovement accMvt" 
 	hql+= " where accMvt.accountingAccount.shortname = :accountShortname";
-	hql+= " and accMvt.accountingEntry.entity.shortname = :entityShortname";  //pourquoi on met le norm alors qu'il existe dans accountshortname
+	hql+= " and accMvt.accountingEntry.entity.shortname = :entityShortname";
 	hql+= " and accMvt.currency.shortname = :currencyShortname";
 	hql+= " and accMvt.cpty.shortname = :cptyShortname";	
 	
@@ -213,8 +214,7 @@ function completeRowFromMap(iHeaderMap, iMap, oRow) {
 	}
 }
 
-
-function getContextColumns(contextName) {
+function getContextColumns(contextName) {     
 	var hql = "select e.shortname from ExpressionContext ex inner join ex.expressions e where ex.shortname = :contextName and ex.status = 'actual' and ex.active = 1 order by e.shortname";
 	var par = new java.util.HashMap();
 	par.put("contextName", contextName);
@@ -228,13 +228,13 @@ function getContextColumns(contextName) {
 
 
 
-function getRequest(iParams)
+function getAccountingAccountBalance(iParams) 
 {
 	var iParamsHql = new java.util.HashMap();
 
 	
 	var hql = "select accMvt.accountingAccount.shortname,accMvt.accountingEntry.entity.shortname,accMvt.currency.shortname,\
-	accMvt.cpty.shortname,accMvt.currencyOrigin.shortname,sum(accMvt.amountOrigin)"
+	accMvt.cpty.shortname,accMvt.currencyOrigin.shortname,accMvt.folder.id, sum(accMvt.amountOrigin)"
 	hql+= " from AccountingMovement accMvt ";
 
 	hql+=  " where " + helper.buildListFilter("accMvt.accountingAccount.id", iParams.get("accountingAccountList"));
@@ -243,9 +243,7 @@ function getRequest(iParams)
 	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
 	hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
-	helper.buildListFilter(" and (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and am.accountingAccount.id = fv.dataEntityId)", iParams.get("accountingNormList"));
-	//hql += " and " + helper.buildListFilter("accMvt.accountingAccount.customFields.accountingAccountAddInfo.accountingNorm",iParams.get("accountingNormList"));
-	//helper.setUserData(aAccountingAccount(),'accountingAccountAddInfo.accountingNorm', iParams.get("accountingNormList"));
+	hql += " and " + helper.buildListFilter(" and (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and am.accountingAccount.id = fv.dataEntityId)", iParams.get("accountingNormList"));
 
 	if(iParams.get("dateType")== "V"){
 		hql += " and  accMvt.valueDate <= :endDate";
@@ -257,7 +255,7 @@ function getRequest(iParams)
 	iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
 
 	hql+= " group by accMvt.accountingAccount.shortname,accMvt.accountingEntry.entity.shortname,accMvt.currency.shortname,accMvt.currencyOrigin.shortname,\
-		accMvt.cpty.shortname"
+		accMvt.cpty.shortname,accMvt.folder.id"
 	return [hql,iParamsHql];
  
 }
