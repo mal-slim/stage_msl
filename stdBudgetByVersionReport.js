@@ -38,15 +38,26 @@ uselib(stdBudgetReportLibrary);
  */
  
  var params = reportParamInitialization(source);    
-var header = ["Id", "Entity", "Currency", "Status", "Category", "Analytic Type","Entry Date","Amount","Commentary","Cpty","Strategy"];
-header = completeHeader(header);
+ 
+if (params.get("importFormat") == 'true')
+		var header = ["Entity", "Currency", "Nature","Amount","Budget date","Status","External ID","Commentary","Strategy"];
+else
+		var header = ["Id", "Entity", "Currency", "Status", "Category", "Analytic Type","Entry Date","Amount","Commentary","Cpty","Strategy"];
+
+header = completeHeader(header);  // complete with structure
 
 var paramsHql = new java.util.HashMap();
+var paramsHql2 = new java.util.HashMap();
+
 [hql,budgetVersionOnParams]=getHqBudgetVersion(params);
 paramsHql.put("budgetVersion",budgetVersionOnParams) ;
+paramsHql.put("endDate", helper.parseDate(params.get("endDate")));
+paramsHql.put("startDate",helper.parseDate(params.get("startDate"))) ;
+
+paramsHql2.put("budgetVersion",budgetVersionOnParams) ;
 
 var structurePathMap = new java.util.HashMap();
-var structId = getStruct(paramsHql);
+var structId = getStruct(paramsHql2);
 var path = [];
 structurePathMap.put(structId,path);
 structurePathMap = structurePath(structurePathMap,structId);
@@ -76,6 +87,7 @@ function getStruct(paramsHql)
 {
 	var hql = "SELECT bv.budget.budgetStructure.id from BudgetVersion bv"; 
 	hql+= " where bv = :budgetVersion";
+	
 	var hqlResult = helper.executeHqlQuery(hql, paramsHql);
 	return hqlResult;
 }
@@ -85,7 +97,7 @@ function structurePath(iStructurePathMap,parent)
 	//iStructurePathMap contains the id and the full path of every structure 
 	//parent is the root from where starts the DepthTree
 	
-	var hql = "SELECT bs.id , bs.name from BudgetStructure bs";
+	var hql = "SELECT bs.id, bs.name from BudgetStructure bs";
 	hql+= " where bs.parent.id = :budgetStructureId" ;
 	var paramsQuery = new Packages.java.util.HashMap();
 	paramsQuery.put("budgetStructureId", parent);
@@ -110,23 +122,33 @@ function fillRows(iHeader, iHeaderMap, iData) {
 	
 	var row = java.lang.reflect.Array.newInstance(java.lang.Object, iHeader.length);
 	
-	row[iHeaderMap.get("Id")] = iData[0].getId();
+	if(params.get("importFormat")=='true')
+	{
+		if(iData[0].getVersion().getNature())
+			row[iHeaderMap.get("Nature")]= iData[0].getVersion().getNature().getShortname() ;
+		row[iHeaderMap.get("Budget date")]= iData[0].getBudgetDate();
+		row[iHeaderMap.get("External ID")]= iData[0].getExternalId();
+	}
+	else{
+		row[iHeaderMap.get("Id")] = iData[0].getId();
+		if(iData[0].getStructure())
+			row[iHeaderMap.get("Category")] = iData[0].getStructure().getName();
+		if(iData[0].getStructure().getAnalyticType())
+			row[iHeaderMap.get("Analytic Type")] = iData[0].getStructure().getAnalyticType().getShortname();
+		row[iHeaderMap.get("Entry Date")] = iData[0].getEntryDate();
+		if(iData[0].getCpty())	
+			row[iHeaderMap.get("Cpty")] = iData[0].getCpty().getShortname();
+	}
+	
 	if(iData[0].getVersion().getEntity())
 		row[iHeaderMap.get("Entity")] = iData[0].getVersion().getEntity().getShortname();
 	if(iData[0].getVersion().getCurrency())
 		row[iHeaderMap.get("Currency")] = iData[0].getVersion().getCurrency().getShortname();
 	if(iData[0].getStatus())
 		row[iHeaderMap.get("Status")] = iData[0].getStatus().getShortname();
-	if(iData[0].getStructure())
-		row[iHeaderMap.get("Category")] = iData[0].getStructure().getName();
-	if(iData[0].getStructure().getAnalyticType())
-		row[iHeaderMap.get("Analytic Type")] = iData[0].getStructure().getAnalyticType().getShortname();
-	
-	row[iHeaderMap.get("Entry Date")] = iData[0].getEntryDate();
 	row[iHeaderMap.get("Amount")] = iData[0].getAmount() * iData[0].getStructure().getSign();
 	row[iHeaderMap.get("Commentary")] = iData[0].getComment();
-	if(iData[0].getCpty())	
-		row[iHeaderMap.get("Cpty")] = iData[0].getCpty().getShortname();
+	
 	row[iHeaderMap.get("Strategy")] = iData[0].getStrategy();
 	
 	levelsStructure = structurePathMap.get(iData[0].getStructure().getId()) //return the path of the cuurent structure
@@ -145,6 +167,10 @@ function fillRows(iHeader, iHeaderMap, iData) {
 function getHqBudgetVersion(params) {
 	var hql = "from BudgetEntry bde"; 
 	hql+= " where bde.version = :budgetVersion";
+	hql+= " and bde.entryDate < :endDate";
+	hql+= " and bde.entryDate >= :startDate";
+	
+
 	return [hql,setBudgetVersionOnParams(params)] ;
 }
 
@@ -163,8 +189,11 @@ function setBudgetVersionOnParams(params) {
 		hql +=" and bde.version.validationDate = :validationDate" ;
 		paramsHql2.put("validationDate",getValidationDate(params));
 		var hqlResult = helper.executeHqlQuery(hql, paramsHql2);
+		helper.log("INFO",hqlResult.size());
 		if (hqlResult.size() > 0)
-			return hqlResult.get(0);  //==1 sinon message erreur
+			return hqlResult.get(0);  
+		else 
+			helper.sendError("no validationDate superior then budgetDate ");
 		
 	} else if (StringUtils.isNotBlank(params.get("budgetVersionId")) == false
 		 && StringUtils.isNotBlank(params.get("budgetDate")) == false) { //on prend la version current
@@ -191,7 +220,6 @@ function setBudgetVersionOnParams(params) {
     	}
      
 	}
-	    
 }
 
 //from parameter budgetDate
