@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <searchModel name="Accounting Account balance (synthetic)" shortname="stdAccountingAccountBalances" active="true" generatesExcel="true" lastUpdateUser="msl" xlsCompatible="0" nameOfFile="balance.xlsx" randomPassword="false">
+    <localizedNames class="java.util.ArrayList">
+      <localizedName locale="en_US" category="searchModel" name="Accounting Account balance (synthetic)"/>
+      <localizedName locale="fr_FR" category="searchModel" name="Balance comptable (synthétique)"/>
+    </localizedNames>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountBalances"/>
+    <file locale="fr_FR" name="balance_fr.xlsx"/>
+    <source index="0" sourceMode="1" sheetName="data" rangeName="data" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingAccountBalances"/>
+      <expressionContext shortname="stdAccountingAccountBalances"/>
+      <rule shortname="stdAccountingAccountBalances"/>
+    </source>
+    <source index="1" sourceMode="6" sheetName="parameters" rangeName="parameters" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingAccountBalances"/>
+    </source>
+  </searchModel>
+</list>
