@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <searchModel name="stdAccountingAccountBalancesDetailled" shortname="stdAccountingAccountBalancesDetailled" active="true" generatesExcel="true" lastUpdateUser="msl" xlsCompatible="0" nameOfFile="balanceFolder.xlsx" randomPassword="false">
+    <localizedNames class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountBalaceReportDetailled"/>
+    <file locale="en_US" name="balance_en.xlsx"/>
+    <file locale="fr_FR" name="balance_FR.xlsx"/>
+    <source index="0" sourceMode="1" sheetName="data" rangeName="data" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingAccountBalancesDetailled"/>
+      <expressionContext shortname="stdAccountingAccountBalancesDetailled"/>
+      <rule shortname="stdAccountingAccountBalancesDetailled"/>
+    </source>
+    <source index="1" sourceMode="6" sheetName="parameters" rangeName="parameters" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingAccountBalancesDetailled"/>
+    </source>
+  </searchModel>
+</list>

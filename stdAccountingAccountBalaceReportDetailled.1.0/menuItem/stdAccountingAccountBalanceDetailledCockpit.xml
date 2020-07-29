@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <node type="menuitem" name="stdAccountingAccountBalanceDetailledCockpit" labelKey="label" tooltipKey="tooltip" nodeIndex="3">
+    <parent name="stdAccountingAccountBalanceDetailled"/>
+    <parameters class="list">
+      <nodeParam name="_class" value="java.util.ArrayList" type="moduleParameter"/>
+      <nodeParam name="module" value="com/mccsoft/diapason/staticData/cockpitReport.swf" type="module"/>
+      <nodeParam name="label_en" value="stdAccountingAccountBalanceDetailled%20%5BCockpit%5D" type="translation"/>
+      <nodeParam name="label_fr" value="stdAccountingAccountBalanceDetailled%20%5BCockpit%5D" type="translation"/>
+      <nodeParam name="cockpit" value="true" type="moduleParameter"/>
+      <nodeParam name="report" value="stdAccountingAccountBalancesDetailled" type="moduleParameter"/>
+    </parameters>
+    <roles class="list">
+      <roleGrant>
+        <role shortname="elior_Config"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="View only"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Viewer"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Sign Group 1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Sign College C"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Sign College B"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Sign College A"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Sign Central Validation"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Payment Manager"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Netting Operator"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Netting Manager"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Middle Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Matching"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Front Money Market"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Front Forex"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Front Derivative"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Front Commodities"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Front Commercial Paper"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_UK"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Services"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_RC_France"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Luxembourg"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Italia"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Iberia"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Elior_NA"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Corporate"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_City_Sites"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale_Centrale_purchase"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_InternalCurrentAccount_Balance_Scale"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Email_ForexListing_elior"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Configuration"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Cash Operator"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Cash Manager"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Budget Operator"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Budget Manager"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Back Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="BAM Manager"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Administration"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Accounting Operator"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Accounting Manager"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="A Critical validation"/>
+      </roleGrant>
+    </roles>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountBalaceReportDetailled"/>
+  </node>
+</list>

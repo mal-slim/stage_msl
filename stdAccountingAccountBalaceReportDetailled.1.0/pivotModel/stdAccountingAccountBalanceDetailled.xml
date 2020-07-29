@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <pivotModel name="stdAccountingAccountBalanceDetailled" shortname="stdAccountingAccountBalanceDetailled" active="true">
+    <scope name="Root"/>
+    <searchDefinition shortname="stdAccountingAccountBalancesDetailled"/>
+    <rule shortname="stdAccountingAccountBalancesDetailled"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountBalaceReportDetailled"/>
+  </pivotModel>
+</list>
