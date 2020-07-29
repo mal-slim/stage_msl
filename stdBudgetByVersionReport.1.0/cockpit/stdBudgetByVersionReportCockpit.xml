@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <cockpit active="true" shortname="stdBudgetByVersionReportCockpit" name="stdBudgetByVersionReportCockpit" status="actual" isUpdatable="true" lastUpdateUser="msl" captureUser="msl" captureDate="2020-07-21T12:06:42.733Z" version="2" presentation="h1-0">
+    <localizedNames class="java.util.ArrayList"/>
+    <customFields class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdBudgetByVersionReport"/>
+    <definition><![CDATA[
+[{"mode":"graph","title":"stdBudgetByVersionReport","searchDefSn":"searchShortname:stdBudgetByVersionReport","graph":{"xAxis":{"position":"bottom","name":"Budget date","field":"Budget date"},"series":[{"divider":1,"type":"line","stack":false,"name":"Amount","field":"Amount"}],"preselectParameter":""},"type":"pivot","name":"stdBudgetByVersionReport","searchParameters":{"importFormat":true,"startDate":"2020-02-12T00:00:00.000Z","endDate":"2020-07-21T00:00:00.000Z","budget":"161","entity":"200","currency":"1","searchDataEntityId":117,"customSearch":"true","searchId":70,"task":"cockpit"},"searchTemplate":"<formTemplate><formElement formElementId='importFormat' value='true'></formElement><formElement formElementId='startDate' value='2020-02-12T00:00:00.000Z'></formElement><formElement formElementId='endDate' value='2020-07-21T00:00:00.000Z'></formElement><formElement formElementId='budget' value='161'><item name='Budget_Italy' shortname='Budget_Italy' doubleName='Budget_Italy ▫ Budget_Italy'>161</item></formElement><formElement formElementId='entity' value='200'><item name='INT_BK_BR_CPTY_200' shortname='INT_BK_BR_CPTY_200' doubleName='INT_BK_BR_CPTY_200 ▫ INT_BK_BR_CPTY_200'>200</item></formElement><formElement formElementId='currency' value='1'><item name='Euro' shortname='EUR' doubleName='EUR ▫ Euro'>1</item></formElement><formElement formElementId='budgetVersionId'></formElement><formElement formElementId='budgetDate'></formElement></formTemplate>"}]
+]]></definition>
+  </cockpit>
+</list>

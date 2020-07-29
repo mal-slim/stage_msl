@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <pivotModel name="stdBudgetByVersionReport" shortname="stdBudgetByVersionReport" active="true">
+    <scope name="Root"/>
+    <searchDefinition shortname="stdBudgetByVersionReport"/>
+    <rule shortname="stdBudgetByVersionReport"/>
+    <diapasonPackage version="1.0" shortname="stdBudgetByVersionReport"/>
+  </pivotModel>
+</list>
