@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <rule active="true" shortname="stdAccountingJournalXls" name="std Accounting Journal Xls" status="actual" isUpdatable="true" lastUpdateUser="Malik" captureUser="Importer" version="251">
+    <localizedNames class="java.util.ArrayList"/>
+    <customFields class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+    <category shortname="excelRules" customDictionaryName="ruleCategory"/>
+    <dataEntity dataType="ENTITY" shortname="accountingMovement"/>
+    <signature><![CDATA[
+
+
+ 
+
+
+]]></signature>
+  </rule>
+</list>

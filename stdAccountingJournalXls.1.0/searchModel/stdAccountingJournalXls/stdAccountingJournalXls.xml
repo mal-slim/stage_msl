@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <searchModel name="stdAccountingJournalXls" shortname="stdAccountingJournalXls" active="true" generatesExcel="true" lastUpdateUser="Malik" xlsCompatible="1" nameOfFile="accountingJournalXls.xlsx" randomPassword="false">
+    <localizedNames class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+    <file locale="fr_FR" name="accountingJournalXls_fr.xlsx"/>
+    <source index="0" sourceMode="1" sheetName="data" rangeName="data" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingJournalXls"/>
+      <expressionContext shortname="stdAccountingJournalXls2"/>
+      <rule shortname="stdAccountingJournalXls"/>
+    </source>
+    <source index="1" sourceMode="6" sheetName="parameters" rangeName="parameters" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingJournalXls"/>
+    </source>
+  </searchModel>
+</list>

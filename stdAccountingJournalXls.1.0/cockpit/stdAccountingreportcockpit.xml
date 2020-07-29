@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <cockpit active="true" shortname="stdAccountingreportcockpit" name="stdAccountingreportcockpit" status="actual" isUpdatable="true" lastUpdateUser="Malik" captureUser="Malik" captureDate="2020-06-11T08:09:46.638Z" version="7" presentation="h1-0">
+    <localizedNames class="java.util.ArrayList"/>
+    <customFields class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+    <definition><![CDATA[
+
+
+
+[{"mode":"graph","title":"stdAccountingcockpit","searchDefSn":"searchShortname:stdAccountingJournalXls","graph":{"xAxis":{"position":"bottom","name":"accountingDate","field":"accountingDate"},"series":[{"divider":1,"type":"line","stack":false,"name":"amount","field":"amount"}],"preselectParameter":""},"type":"pivot","name":"stdAccountingPivot","searchParameters":{"accountingDateFrom":"2020-01-01T00:00:00.000Z","searchDataEntityId":296,"customSearch":"true","searchId":1516,"task":"cockpit"},"searchTemplate":"<formTemplate><formElement formElementId='accountingDateFrom' value='2020-01-01T00:00:00.000Z'></formElement><formElement formElementId='accountingDateTo'></formElement><formElement formElementId='lastUpdateFrom'></formElement><formElement formElementId='lastUpdateTo'></formElement><formElement formElementId='processDateFrom'></formElement><formElement formElementId='processDateTo'></formElement><formElement formElementId='exportDateFrom'></formElement><formElement formElementId='exportDateTo'></formElement><formElement formElementId='applicativeStatus'></formElement><formElement formElementId='applicativeStatusasShortname'></formElement><formElement formElementId='accountingEntryIdFrom'></formElement><formElement formElementId='accountingEntryIdTo'></formElement><formElement formElementId='entity'></formElement><formElement formElementId='entityasShortname'></formElement><formElement formElementId='folder'></formElement><formElement formElementId='folderasShortname'></formElement><formElement formElementId='cpty'></formElement><formElement formElementId='cptyasShortname'></formElement><formElement formElementId='accountingCurrency'></formElement><formElement formElementId='accountingCurrencyasShortname'></formElement><formElement formElementId='currencyOrigin'></formElement><formElement formElementId='currencyOriginasShortname'></formElement><formElement formElementId='accountingaccount'></formElement><formElement formElementId='accountingaccountasShortname'></formElement><formElement formElementId='amountFrom'></formElement><formElement formElementId='amountTo'></formElement><formElement formElementId='description'></formElement><formElement formElementId='tradeId'></formElement><formElement formElementId='movementId'></formElement><formElement formElementId='processId'></formElement></formTemplate>"}]
+
+
+
+]]></definition>
+  </cockpit>
+</list>

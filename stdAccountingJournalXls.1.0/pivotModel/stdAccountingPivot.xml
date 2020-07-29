@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <pivotModel name="stdAccountingPivot" shortname="stdAccountingPivot" active="true">
+    <scope name="Root"/>
+    <searchDefinition shortname="stdAccountingJournalXls"/>
+    <rule shortname="stdAccountingJournalXls"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+  </pivotModel>
+</list>

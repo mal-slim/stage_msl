@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <node type="menuitem" name="stdAccountingreport" labelKey="label" tooltipKey="tooltip" nodeIndex="2">
+    <parent name="AccountingJournalXlreport"/>
+    <parameters class="list">
+      <nodeParam name="_class" value="java.util.ArrayList" type="moduleParameter"/>
+      <nodeParam name="module" value="com/mccsoft/diapason/searchModel/searchModel.swf" type="module"/>
+      <nodeParam name="label_en" value="stdAccounting%20%5BXl%20Analytics%5D" type="translation"/>
+      <nodeParam name="label_fr" value="stdAccounting%20%5BXl%20Analytics%5D" type="translation"/>
+      <nodeParam name="searchModel" value="stdAccountingJournalXls" type="moduleParameter"/>
+    </parameters>
+    <roles class="list">
+      <roleGrant>
+        <role shortname="WF_UserFOLight(Workflow)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_UserBOLight(Workflow)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Treasurer Front-Office (full menu)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Treasurer Cash-Management"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_TC_Validator Front-Office 2-2"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_TC_Validator Cash-Management"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_TC_Validator Accountant Interest Scale"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_TC_Validator Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_TC_Signatory"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_TC_Accountant Consult"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_PaymentFactory"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Treasurer Cash-Management"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Treasurer Back-Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Transfer request validation-reject final"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Transfer request validation-reject 1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Transfer information validation-reject final"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Transfer information validation-reject 1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Interest Scales"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_FXforRollover"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Links TC-Affiliates_Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Link Technip Eurocash / Affiliates (A deleter)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_GL_Validation_Level2"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_GL_Validation_Level1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_FT_Forex+MMRequest_TPEU Validation"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_FT_Forex+MMRequest_GTMA Validation Level 2"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_FT_Forex+MMRequest_GTMA Validation Level 1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_FT_Forex+MMRequest_GTMA Creation"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_External Debt Level Final"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_External Debt Level 1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Consult Front-Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_Consult Back-Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_BRA_FO"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_BRA_CM"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_BRA_BO"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_BRA_AffiliatesValidator"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_BRA_AffiliatesRequest"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_BRA_Administrator (Region)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_All_Validator Back-Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_ADMIN - Region"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="WF_ADMIN - Group"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="UserFOLight(Report)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="UserBOLight(Report)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Treasurer Cash-Management"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Treasurer Back-Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Supervisor"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Links with another Treasury center (A deleter)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Links TC-Affiliates_Financial Control"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Links TC-Affiliates_Administrator"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Italy saisit front"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="GTD - Treasurer Front Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="GTD - Treasurer Cash Management"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="GTD - Treasurer Back Office"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Front Mutual Fund"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Financial control (full menu)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="FXall"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Creator Zba Cash pooling information"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Consult Static Data"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Consult Cash-Management"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="BackOfficeEditLetter"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="BRA_ConsultFO"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="BRA_ConsultAffiliatesRequest"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="BRA_Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Accountant JV"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="Accountant (full menu)"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="ADMIN - Entity"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="27_Accountant_GL_Level2"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="26_VIEW_ONLY"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="26_Accountant_GL_Level1"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="25_ADMIN_IT"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="24_FULLBRA_FinancialControl"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="23_FULLBRA_Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="22_FULLBRA_TreasurerBackOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="21_FULLBRA_TreasurerFrontOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="20_FULLBRA_TreasurerCashManagement"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="19_ADMIN_FULLBRA"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="18_LIGHT_FinancialControl"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="17_LIGHT_Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="16_LIGHT_TreasurerBackOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="15_LIGHT_TreasurerFrontOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="14_LIGHT_TreasurerCashManagement"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="13_FULL_FinancialControl"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="12_FULL_Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="11_FULL_TreasurerBackOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="10_FULL_TreasurerFrontOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="09_FULL_TreasurerCashManagement"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="08_CORP_FinancialControl"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="07_CORP_Accountant"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="06_CORP_TreasurerBackOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="05_CORP_TreasurerFrontOffice"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="04_CORP_TreasurerCashManagement"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="03_ADMIN_HUB"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="02_ADMIN_FULL"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="01_ADMIN_CORP"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="00_TechnicalScopeForTransfer"/>
+      </roleGrant>
+      <roleGrant>
+        <role shortname="00_TechnicalRequestTransfer"/>
+      </roleGrant>
+    </roles>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+  </node>
+</list>
