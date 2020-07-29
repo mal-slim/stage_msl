@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <searchModel name="Budget Report By Version" shortname="stdBudgetByVersionReport" active="true" generatesExcel="true" lastUpdateUser="msl" xlsCompatible="1" nameOfFile="BudgetVersion.xlsx" randomPassword="false">
+    <localizedNames class="java.util.ArrayList">
+      <localizedName locale="en_US" category="searchModel" name="Budget Report By Version"/>
+      <localizedName locale="fr_FR" category="searchModel" name="Rapport du budget"/>
+    </localizedNames>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdBudgetByVersionReport"/>
+    <file locale="en_US" name="BudgetVersion_us.xlsx"/>
+    <file locale="fr_FR" name="BudgetVersion_fr.xlsx"/>
+    <source index="0" sourceMode="1" sheetName="data" rangeName="data" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdBudgetByVersionReport"/>
+      <rule shortname="stdBudgetByVersionReport"/>
+    </source>
+    <source index="1" sourceMode="6" sheetName="parameters" rangeName="parameters" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdBudgetByVersionReport"/>
+    </source>
+  </searchModel>
+</list>

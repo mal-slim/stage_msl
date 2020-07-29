@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <rule active="true" shortname="stdBudgetByVersionReport" name="budget Report By version" status="actual" isUpdatable="true" lastUpdateUser="msl" captureUser="Administrator" version="213">
+    <localizedNames class="java.util.ArrayList"/>
+    <previous class="rule"/>
+    <customFields class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdBudgetByVersionReport"/>
+    <category shortname="excelRules" customDictionaryName="ruleCategory"/>
+    <dataEntity dataType="ENTITY" shortname="budgetVersion"/>
+    <signature><![CDATA[
+ 
+]]></signature>
+  </rule>
+</list>
