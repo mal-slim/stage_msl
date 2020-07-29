@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <expressionContext active="true" shortname="stdAccountingJournalXls2" name="accountingJournalXls2" status="actual" isUpdatable="true" lastUpdateUser="Malik" captureUser="Malik" captureDate="2020-06-19T16:49:54.064Z" version="27">
+    <previous class="expressionContext"/>
+    <scope name="Root"/>
+    <category shortname="xlAnalytics" customDictionaryName="expressionCategory"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+  </expressionContext>
+</list>

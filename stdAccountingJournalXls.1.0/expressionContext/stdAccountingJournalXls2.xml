@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <expressionContext active="true" shortname="stdAccountingJournalXls2" name="accountingJournalXls2" status="actual" isUpdatable="true" lastUpdateUser="Malik" captureUser="Malik" captureDate="2020-06-19T16:49:54.064Z" version="27">
+    <previous class="expressionContext"/>
+    <scope name="Root"/>
+    <category shortname="xlAnalytics" customDictionaryName="expressionCategory"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
+    <expression shortname="accountingType" expression="/accountingType/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+    </expression>
+    <expression shortname="accountingNorm" expression=" d:getUserData(/, 'accountingAccountAddInfo.accountingNorm')/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+    </expression>
+    <expression shortname="entity" expression="/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="entity"/>
+    </expression>
+    <expression shortname="accountingAccount" expression="/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+    </expression>
+  </expressionContext>
+</list>
