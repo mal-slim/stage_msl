@@ -243,7 +243,7 @@ function getAccountingAccountBalance(iParams)
 	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
 	hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus IN ('validated','cancelled')";
-	hql += " and " + helper.buildListFilter(" and (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and am.accountingAccount.id = fv.dataEntityId)", iParams.get("accountingNormList"));
+	hql += " and " + helper.buildListFilter(" (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and accMvt.accountingAccount.id = fv.dataEntityId)", iParams.get("accountingNormList"));
 
 	if(iParams.get("dateType")== "V"){
 		hql += " and  accMvt.valueDate <= :endDate";
