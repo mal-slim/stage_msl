@@ -1,55 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-  <searchDefinition name="Budget Report By Version" shortname="stdBudgetByVersionReport" active="true" isSearch="false" isReport="true" customHql="false" hql=" and ::importFormat and ::startDate and ::endDate and ::budget and ::entity and ::currency and ::budgetVersionId and ::budgetDate">
+  <searchDefinition name="Budget Report By Version" shortname="stdBudgetByVersionReport" active="true" isSearch="false" isReport="true" customHql="false" hql=" and ::budgetVersionId and ::budgetDate and ::budget and ::entity and ::currency and ::startDate and ::endDate and ::importFormat">
     <scope name="Root"/>
     <dataEntity dataType="ENTITY" shortname="budget"/>
     <diapasonPackage version="1.0" shortname="stdBudgetByVersionReport"/>
-    <filter path="booleanValue" type="boolean" active="true" name="Budget Import Format" shortname="importFormat" required="false" hql="$ROOT_ENTITY.booleanValue = :importFormat" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
-      <dataEntity dataType="ENTITY" shortname="budget"/>
-      <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="Budget Import Format"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="Format d'import des budgets"/>
-      </localizedNames>
-      <extraInfo>true</extraInfo>
-    </filter>
-    <filter path="dateValue" type="date" active="true" name="From Budget Entry Date" shortname="startDate" required="true" hql="trunc($ROOT_ENTITY.dateValue) = :startDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
-      <dataEntity dataType="ENTITY" shortname="budget"/>
-      <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="From Budget Entry Date"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="de la date d'entrée de budget"/>
-      </localizedNames>
-    </filter>
-    <filter path="dateValue" type="date" active="true" name="to" shortname="endDate" required="true" hql="trunc($ROOT_ENTITY.dateValue) = :endDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="false">
-      <dataEntity dataType="ENTITY" shortname="budget"/>
-      <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="to"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="Au"/>
-      </localizedNames>
-    </filter>
-    <filter path="budget" type="entity" active="true" name="Budget" shortname="budget" required="true" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="true">
-      <dataEntity dataType="ENTITY" shortname="budget"/>
-      <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="Budget"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="Budget"/>
-      </localizedNames>
-      <searchEntity shortname="budget" name="Budget" className="com.mccsoft.diapason.data.Budget" searchClassName="com.mccsoft.diapason.data.Budget" serviceName="budget" serviceExtraParams="&amp;genericType=simpleData" dataExpression="simpleData" labelField="@shortname" dataType="DICT" description="Budget"/>
-    </filter>
-    <filter path="entity" type="entity" active="true" name="Entity" shortname="entity" required="true" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="true">
-      <dataEntity dataType="ENTITY" shortname="budget"/>
-      <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="Entity"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="Entité"/>
-      </localizedNames>
-      <searchEntity shortname="budgetEntity" name="Budget Entity" className="com.mccsoft.diapason.data.Entity" searchClassName="com.mccsoft.diapason.data.Entity" serviceName="entity" serviceExtraParams="&amp;genericType=budget" dataExpression="item" labelField="@shortname" dataType="DICT" description="Budget Entity"/>
-    </filter>
-    <filter path="currency" type="entity" active="true" name="Currency" shortname="currency" required="true" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="true">
-      <dataEntity dataType="ENTITY" shortname="budget"/>
-      <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="Currency"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="Devise"/>
-      </localizedNames>
-      <searchEntity shortname="currency" name="Currency" className="com.mccsoft.diapason.data.Currency" searchClassName="com.mccsoft.diapason.data.Currency" serviceName="currency" dataExpression="item" labelField="@shortname" dataType="DICT" description="Currency"/>
-    </filter>
     <filter path="budgetVersion" type="entity" active="true" name="Budget version" shortname="budgetVersionId" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="true">
       <dataEntity dataType="ENTITY" shortname="budget"/>
       <localizedNames class="java.util.ArrayList">
@@ -58,12 +12,58 @@
       </localizedNames>
       <searchEntity shortname="budgetVersion" name="Budget Version" className="com.mccsoft.diapason.data.BudgetVersion" searchClassName="com.mccsoft.diapason.data.BudgetVersion" serviceName="budgetVersion" dataExpression="simpleData" labelField="@name" dataType="DICT" description="Budget Version"/>
     </filter>
-    <filter path="dateValue" type="date" active="true" name="Budget Date" shortname="budgetDate" required="false" hql="trunc($ROOT_ENTITY.dateValue) = :budgetDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="false">
+    <filter path="dateValue" type="date" active="true" name="Or budget validate before (current version if blank)" shortname="budgetDate" required="false" hql="trunc($ROOT_ENTITY.dateValue) = :budgetDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
       <dataEntity dataType="ENTITY" shortname="budget"/>
       <localizedNames class="java.util.ArrayList">
-        <localizedName locale="en_US" category="searchFilter" name="From Budget Validation Date"/>
-        <localizedName locale="fr_FR" category="searchFilter" name="Date de validation du budget"/>
+        <localizedName locale="en_US" category="searchFilter" name="Or budget validate before (current version if blank)"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Ou le budget validé avant (version current si vide)"/>
       </localizedNames>
+    </filter>
+    <filter path="budget" type="entity" active="true" name="Budget" shortname="budget" required="false" hql="$ROOT_ENTITY.budget.undefined.id = (:budget)" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="true" monthSelection="false" newLine="false">
+      <dataEntity dataType="ENTITY" shortname="budget"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Budget"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Budget"/>
+      </localizedNames>
+      <searchEntity shortname="budget" name="Budget" className="com.mccsoft.diapason.data.Budget" searchClassName="com.mccsoft.diapason.data.Budget" serviceName="budget" serviceExtraParams="&amp;genericType=simpleData" dataExpression="simpleData" labelField="@shortname" dataType="DICT" description="Budget"/>
+    </filter>
+    <filter path="entity" type="entity" active="true" name="Entity" shortname="entity" required="false" hql="$ROOT_ENTITY.entity.id = (:entity)" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="false">
+      <dataEntity dataType="ENTITY" shortname="budget"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Entity"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Entité"/>
+      </localizedNames>
+      <searchEntity shortname="budgetEntity" name="Budget Entity" className="com.mccsoft.diapason.data.Entity" searchClassName="com.mccsoft.diapason.data.Entity" serviceName="entity" serviceExtraParams="&amp;genericType=budget" dataExpression="item" labelField="@shortname" dataType="DICT" description="Budget Entity"/>
+    </filter>
+    <filter path="currency" type="entity" active="true" name="Currency" shortname="currency" required="false" hql="$ROOT_ENTITY.currency.id = (:currency)" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="false">
+      <dataEntity dataType="ENTITY" shortname="budget"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Currency"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Devise"/>
+      </localizedNames>
+      <searchEntity shortname="currency" name="Currency" className="com.mccsoft.diapason.data.Currency" searchClassName="com.mccsoft.diapason.data.Currency" serviceName="currency" dataExpression="item" labelField="@shortname" dataType="DICT" description="Currency"/>
+    </filter>
+    <filter path="dateValue" type="date" active="true" name="Budget entry date from" shortname="startDate" required="false" hql="trunc($ROOT_ENTITY.dateValue) = :startDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="budget"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Budget entry date from "/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Date budget de "/>
+      </localizedNames>
+    </filter>
+    <filter path="dateValue" type="date" active="true" name="to" shortname="endDate" required="false" hql="trunc($ROOT_ENTITY.dateValue) = :endDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="false">
+      <dataEntity dataType="ENTITY" shortname="budget"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="to"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="à"/>
+      </localizedNames>
+    </filter>
+    <filter path="booleanValue" type="boolean" active="true" name="Budget import format" shortname="importFormat" required="false" hql="$ROOT_ENTITY.booleanValue = :importFormat" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="budget"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Budget import format"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Format d'import des budgets"/>
+      </localizedNames>
+      <extraInfo>false</extraInfo>
     </filter>
     <localizedNames class="java.util.ArrayList">
       <localizedName locale="en_US" category="searchDefinition" name="Budget Report By Version"/>
