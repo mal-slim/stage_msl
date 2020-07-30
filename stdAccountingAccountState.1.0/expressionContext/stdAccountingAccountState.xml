@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <expressionContext active="true" shortname="stdAccountingAccountState" name="stdAccountingAccountState" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="msl1" captureDate="2020-07-24T10:32:11.879Z" version="2">
+    <scope name="Root"/>
+    <category shortname="xlAnalytics" customDictionaryName="expressionCategory"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountState"/>
+    <expression shortname="accountingAccountSn" expression="/name" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+    </expression>
+    <expression shortname="accountingAccountName" expression="/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+    </expression>
+    <expression shortname="entityShortname" expression="/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="entity"/>
+    </expression>
+  </expressionContext>
+</list>
