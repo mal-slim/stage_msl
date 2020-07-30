@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <searchDefinition name="Accounting account state" shortname="stdAccountingAccountState" active="true" isSearch="false" isReport="true" customHql="false" hql=" and ::startDate and ::endDate and ::dateType and ::accountingAccountList and ::accountingNormList and ::entityList and ::currencyList and ::originCurrencyList and ::cptyList and ::statusList and ::accountingGroup and ::accountingNotInGroup">
+    <scope name="Root"/>
+    <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountState"/>
+    <filter path="dateValue" type="date" active="true" name="Du" shortname="startDate" required="true" hql="trunc($ROOT_ENTITY.dateValue) = :startDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="From"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Du"/>
+      </localizedNames>
+    </filter>
+    <filter path="dateValue" type="date" active="true" name="Au" shortname="endDate" required="true" hql="trunc($ROOT_ENTITY.dateValue) = :endDate" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="To"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Au"/>
+      </localizedNames>
+    </filter>
+    <filter path="reportAccountingMovementDateType" type="cdv" active="true" name="Type de date" shortname="dateType" required="true" hql="$ROOT_ENTITY.reportAccountingMovementDateType.id in (:dateType)" operator="in" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="true" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Date type"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Type de date"/>
+      </localizedNames>
+      <extraInfo>reportAccountingMovementDateType</extraInfo>
+    </filter>
+    <filter path="accountingAccount" type="entity" active="true" name="Compte comptable" shortname="accountingAccountList" required="false" hql="$ROOT_ENTITY.accountingAccount.id in (:accountingAccountList)" operator="in" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Accounting account"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Compte comptable"/>
+      </localizedNames>
+      <searchEntity shortname="accountingAccount" name="Accounting Account" className="com.mccsoft.diapason.data.AccountingAccount" searchClassName="com.mccsoft.diapason.data.AccountingAccount" serviceName="accountingAccount" dataExpression="item" labelField="@shortname" dataType="DICT" description="Accounting Account"/>
+    </filter>
+    <filter path="accountingNorm" type="cdv" active="true" name="Accounting Norm" shortname="accountingNormList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Accounting Norm"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Norme comptable"/>
+      </localizedNames>
+      <extraInfo>accountingNorm</extraInfo>
+    </filter>
+    <filter path="entity" type="entity" active="true" name="Entité" shortname="entityList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Entity"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Entité"/>
+      </localizedNames>
+      <searchEntity shortname="allEntity" name="All Entity" className="com.mccsoft.diapason.data.Entity" searchClassName="com.mccsoft.diapason.data.Entity" serviceName="entity" dataExpression="item" labelField="@shortname" dataType="DICT" description="All Entity"/>
+    </filter>
+    <filter path="currency" type="entity" active="true" name="Devise" shortname="currencyList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Currency (transaction)"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Devise comptable"/>
+      </localizedNames>
+      <searchEntity shortname="currency" name="Currency" className="com.mccsoft.diapason.data.Currency" searchClassName="com.mccsoft.diapason.data.Currency" serviceName="currency" dataExpression="item" labelField="@shortname" dataType="DICT" description="Currency"/>
+    </filter>
+    <filter path="currency" type="entity" active="true" name="Devise d'origine" shortname="originCurrencyList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Origin currency"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Devise d'origine"/>
+      </localizedNames>
+      <searchEntity shortname="currency" name="Currency" className="com.mccsoft.diapason.data.Currency" searchClassName="com.mccsoft.diapason.data.Currency" serviceName="currency" dataExpression="item" labelField="@shortname" dataType="DICT" description="Currency"/>
+    </filter>
+    <filter path="entity" type="entity" active="true" name="Contrepartie" shortname="cptyList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Counterparty"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Contrepartie"/>
+      </localizedNames>
+      <searchEntity shortname="counterpartyEntity" name="Counterparty Entity" className="com.mccsoft.diapason.data.Entity" searchClassName="com.mccsoft.diapason.data.Entity" serviceName="entity" serviceExtraParams="&amp;genericType=counterparty" dataExpression="item" labelField="@shortname" dataType="DICT" description="Counterparty Entity"/>
+    </filter>
+    <filter path="applicativeStatus" type="entity" active="true" name="Statut applicatif (interne)" shortname="statusList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Applicative status (internal)"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Statut applicatif (interne)"/>
+      </localizedNames>
+      <searchEntity shortname="allAccountingEntriesAppStatus" name="All Accounting Entries Applicative Status" className="com.mccsoft.diapason.data.ApplicativeStatus" searchClassName="com.mccsoft.diapason.data.ApplicativeStatus" serviceName="applicativeStatus" serviceExtraParams="&amp;genericType=allAccountingEntrys" dataExpression="item" labelField="@shortname" dataType="DICT" description="All Accounting Entries Applicative Status"/>
+    </filter>
+    <filter path="booleanValue" type="boolean" active="true" name="Comptabilité : Groupe" shortname="accountingGroup" required="false" hql="$ROOT_ENTITY.booleanValue = :accountingGroup" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Accounting : Group"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Comptabilité : Groupe"/>
+      </localizedNames>
+      <extraInfo>true</extraInfo>
+    </filter>
+    <filter path="booleanValue" type="boolean" active="true" name="Hors Groupe" shortname="accountingNotInGroup" required="false" hql="$ROOT_ENTITY.booleanValue = :accountingNotInGroup" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="false">
+      <dataEntity dataType="ENTITY" shortname="accountingAccount"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="Not in Groupe"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="Hors Groupe"/>
+      </localizedNames>
+      <extraInfo>true</extraInfo>
+    </filter>
+    <localizedNames class="java.util.ArrayList">
+      <localizedName locale="en_US" category="searchDefinition" name="Accounting account balances"/>
+      <localizedName locale="fr_FR" category="searchDefinition" name="Soldes des comptes comptables"/>
+    </localizedNames>
+  </searchDefinition>
+</list>

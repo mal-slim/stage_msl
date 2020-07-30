@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <searchModel name="Accounting account state" shortname="stdAccountingAccountState" active="true" generatesExcel="true" lastUpdateUser="msl1" xlsCompatible="0" nameOfFile="stdAccountingAccountState.xlsx" randomPassword="false">
+    <localizedNames class="java.util.ArrayList"/>
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdAccountingAccountState"/>
+    <file locale="en_US" name="stdAccountingAccountState_us.xlsx"/>
+    <file locale="fr_FR" name="stdAccountingAccountState_fr.xlsx"/>
+    <source index="0" sourceMode="1" sheetName="Data" rangeName="Data" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false">
+      <searchDefinition shortname="stdAccountingAccountState"/>
+      <expressionContext shortname="stdAccountingAccountState"/>
+      <rule shortname="stdAccountingAccountState"/>
+    </source>
+    <source index="1" sourceMode="6" sheetName="Parameters" rangeName="Parameters" startingCell="A1" randomPassword="false" active="true" prefixObjectType="false"/>
+  </searchModel>
+</list>
