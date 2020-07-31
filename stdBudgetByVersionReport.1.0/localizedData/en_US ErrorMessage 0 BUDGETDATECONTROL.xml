@@ -1,0 +1,7 @@
+<list>
+  <localizedData>
+    <id locale="en_US" category="ErrorMessage" localizedFk="0" code="BUDGETDATECONTROL"/>
+    <data>No budget validate before the budget date.</data>
+    <diapasonPackage version="1.0" name="stdBudgetByVersionReport" shortname="stdBudgetByVersionReport">604</diapasonPackage>
+  </localizedData>
+</list>

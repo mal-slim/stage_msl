@@ -218,7 +218,8 @@ function getValidationDate(iParams) {
 	paramsHql2.put("budgetDate", helper.parseDate(iParams.get("budgetDate")));
 	var hqlResult2 = helper.executeHqlQuery(hql2, paramsHql2);
 	if (hqlResult2.size() == 0) {
-		helper.sendError("No budget validate after the budget date.");
+		// No budget validate before the budget date
+		helper.setError("BUDGETDATECONTROL");
 	}
 	return hqlResult2.get(0);
 }
