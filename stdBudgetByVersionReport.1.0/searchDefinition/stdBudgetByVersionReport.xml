@@ -19,7 +19,7 @@
         <localizedName locale="fr_FR" category="searchFilter" name="Ou le budget validé avant (version current si vide)"/>
       </localizedNames>
     </filter>
-    <filter path="budget" type="entity" active="true" name="Budget" shortname="budget" required="false" hql="$ROOT_ENTITY.budget.undefined.id = (:budget)" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="true" monthSelection="false" newLine="false">
+    <filter path="budget" type="entity" active="true" name="Budget" shortname="budget" required="false" hql="$ROOT_ENTITY.budget.id = (:budget)" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="true" returnShortname="false" monthSelection="false" newLine="false">
       <dataEntity dataType="ENTITY" shortname="budget"/>
       <localizedNames class="java.util.ArrayList">
         <localizedName locale="en_US" category="searchFilter" name="Budget"/>
