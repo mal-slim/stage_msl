@@ -45,19 +45,22 @@ if (params.get("importFormat") == 'true')
 else
 	var header = ["Id", "Entity", "Currency", "Status", "Category", "Analytic Type", "Entry Date", "Amount", "Commentary", "Cpty", "Strategy"];
 
-header = completeHeader(header); // complete with structure
-
+header = completeHeader(header,params); // complete with structure
+helper.log("INFO",header);
 controlParams(params);
 // Find the budget version related with parameters
 var budgetVersion = getBudgetVersion(params);
 // Get the budget structure of the budget version
+helper.log("INFO",budgetVersion);
 var structId = getBudgetStructure(budgetVersion);
+helper.log("INFO",structId);
 var structurePathMap = new java.util.HashMap();
 var path = [];
 structurePathMap.put(structId, path);
 structurePathMap = structurePath(structurePathMap, structId);
+helper.log("INFO",structurePathMap);
 
-var hql = "from BudgetEntry bde  where bde.version = :budgetVersion ";
+var hql = "from BudgetEntry bde  where bde.version.id = :budgetVersion ";
 var paramsHql = new java.util.HashMap();
 paramsHql.put("budgetVersion", budgetVersion);
 if (StringUtils.isNotBlank(params.get("startDate"))) {
@@ -77,9 +80,21 @@ hqlList.push({
 
 createHqlReport("stdBudget", hqlList, header);
 
-function completeHeader(iHeader) {
+function completeHeader(iHeader,iParams) {
 	var atColumn = []
-	var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(helper.getParamValue("budget")));
+	
+	if (StringUtils.isNotBlank(iParams.get("budget")) == true)	
+		var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(iParams.get("budget")));
+	else
+	{			
+		var paramsHql = new java.util.HashMap();
+		var hql = "select bv.budget from  BudgetVersion bv where bv.id = :budgetVersionId " ; 
+		paramsHql.put("budgetVersionId",helper.parseLong(iParams.get("budgetVersionId"))) ; 
+		var hqlResult = helper.executeHqlQuery(hql, paramsHql);
+		/*helper.log("INFO",hqlResult)
+    	helper.log("INFO",hqlResult.get(0))*/
+		var budget = hqlResult.get(0);
+	}
 	var paramsLevel = new java.util.HashMap();
 	var DepthTree = getMaxLevel(paramsLevel, budget) - 1;
 	for (var i = new java.lang.Long(1); i <= DepthTree; i++) {
@@ -90,12 +105,14 @@ function completeHeader(iHeader) {
 }
 
 function getBudgetStructure(iBudgetVersion) {
-	var params = new java.util.HashMap();
-	params.put("budgetVersion", iBudgetVersion);
+	var paramsHql = new java.util.HashMap();
 	var hql = "SELECT bv.budget.budgetStructure.id from BudgetVersion bv";
-	hql += " where bv = :budgetVersion"
-	var hqlResult = helper.executeHqlQuery(hql, params);
-	return hqlResult;
+	hql += " where bv.id = :budgetVersionId";
+	paramsHql.put("budgetVersionId", iBudgetVersion);
+	helper.log("INFO",iBudgetVersion);
+	var hqlResult = helper.executeHqlQuery(hql, paramsHql);
+	//helper.log("INFO",hqlResult)
+	return hqlResult.get(0);
 }
 
 function structurePath(iStructurePathMap, parent) {
@@ -139,7 +156,7 @@ function fillRows(iHeader, iHeaderMap, iData) {
 		row[iHeaderMap.get("Entry Date")] = budgetEntry.getEntryDate();
 		if (budgetEntry.getCpty())
 			row[iHeaderMap.get("Cpty")] = budgetEntry.getCpty().getShortname();
-		levelsStructure = structurePathMap.get(budgetEntry.getStructure().getId()) //return the path of the current structure
+		levelsStructure = structurePathMap.get(budgetEntry.getStructure().getId()); //return the path of the current structure
 		var iter = 0;
 		for (var i = new java.lang.Long(1); i <= levelsStructure.length; i++) {
 			row[iHeaderMap.get("Q_BUDGET_level_" + i)] = levelsStructure[iter];
@@ -198,7 +215,7 @@ function getBudgetVersion(iParams) {
 			helper.sendError("There is no current version.");
 		}
 	} else {
-		return iParams.get("budgetVersionId");
+		return helper.parseLong(iParams.get("budgetVersionId"));
 	}
 }
 
