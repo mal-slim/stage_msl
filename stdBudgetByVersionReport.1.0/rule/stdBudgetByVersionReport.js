@@ -211,9 +211,9 @@ function getBudgetVersion(iParams) {
 		if (hqlResult.size() == 1) {
 			return hqlResult.get(0);
 		} else if (hqlResult.size() > 1) {
-			helper.sendError("There is more than one version.");
+			helper.setError("BUDGETVERSIONCONTROL");
 		} else {
-			helper.sendError("There is no current version.");
+			helper.setError("BUDGETVERSIONCONTROL2");
 		}
 	} else {
 		return helper.parseLong(iParams.get("budgetVersionId"));
@@ -247,7 +247,12 @@ function getValidationDate(iParams) {
  * @param {*} iParams 
  */
 function controlParams(iParams){
-	// soit la budget version
-	// soit budget/entity/curreny
-	// soit budget/entity/curreny/budgetDate
+	if(params.get("budgetVersionId")==null){
+		if(params.get("budget")==null || params.get("entity")==null || params.get("currency")==null)
+			helper.setError("BUDGETCHOICECONTROL")
+	}
+	else{
+		if(params.get("budget") || params.get("entity") || params.get("currency"))
+			helper.setError("BUDGETVERSIONCONTROL")
+	}
 }
