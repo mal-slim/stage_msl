@@ -84,8 +84,8 @@ function completeHeader(iHeader,iParams) {
 	var atColumn = []
 	
 	if (StringUtils.isNotBlank(iParams.get("budget")) == true)	
-		var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(iParams.get("budget")));
-	else
+ 	    var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(helper.getParamValue("budget")));	
+ 	else
 	{			
 		var paramsHql = new java.util.HashMap();
 		var hql = "select bv.budget from  BudgetVersion bv where bv.id = :budgetVersionId " ; 
@@ -144,7 +144,8 @@ function fillRows(iHeader, iHeaderMap, iData) {
 	var row = java.lang.reflect.Array.newInstance(java.lang.Object, iHeader.length);
 	var budgetEntry = iData[0];
 	if (params.get("importFormat") == 'true') {
-		row[iHeaderMap.get("Nature")] = budgetEntry.getVersion().getNature().getShortname();
+	    if (budgetEntry.getVersion().getNature())
+		    row[iHeaderMap.get("Nature")] = budgetEntry.getVersion().getNature().getShortname();
 		row[iHeaderMap.get("Budget date")] = budgetEntry.getBudgetDate();
 		row[iHeaderMap.get("External ID")] = budgetEntry.getExternalId();
 	} else {
@@ -170,7 +171,7 @@ function fillRows(iHeader, iHeaderMap, iData) {
 		row[iHeaderMap.get("Currency")] = budgetEntry.getVersion().getCurrency().getShortname();
 	if (budgetEntry.getStatus())
 		row[iHeaderMap.get("Status")] = budgetEntry.getStatus().getShortname();
-	row[iHeaderMap.get("Amount")] = budgetEntry.getAmount().multiply(helper.bigDecimal(budgetEntry.getStructure().getSign()));
+	row[iHeaderMap.get("Amount")] = budgetEntry.getAmount() * budgetEntry.getStructure().getSign();
 	row[iHeaderMap.get("Commentary")] = budgetEntry.getComment();
 
 	row[iHeaderMap.get("Strategy")] = budgetEntry.getStrategy();
