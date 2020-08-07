@@ -1,10 +1,12 @@
-// Loader Header
+/// Loader Header
 // @shortname 	=	stdAccountingAccountBalancesDetailled  @
 // @name		=	std Accounting Account Balances With Folder  @
 // @dataEntity	=   accountingEntry @
 // @category	=   excelRules @
 // @scope		=   Root  @
 // $Id: stdAccountingAccountBalancesDetailled.js,v 1.3 2017/05/18 12:21:04 rko Exp $
+
+
 
 /**
  * @fileOverview
