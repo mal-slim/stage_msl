@@ -1,6 +1,8 @@
 
 
 
+
+
 importClass(Packages.com.mccsoft.diapason.util.DateUtil);
 importClass(Packages.com.mccsoft.diapason.excel.util.ExcelRangeResult);
 var expressionContextTmp = null;
@@ -31,8 +33,11 @@ var header = header.concat(getContextColumns(expressionContextShortname));
 
 [hql, paramsHql] = getOpeningBalance(params);
 [hql1, paramsHql1] = getClosingBalance(params);
-[hql2, paramsHql2] = getAccountingMovementCredit(params);
-[hql3, paramsHql3] = getAccountingMovementDebit(params);
+[hql2, paramsHql2] = getAccountingMovement(params);
+hql2 += " and accMvt.sign >0 "
+var hql3 = hql2 + " and accMvt.sign <0 "
+
+
 
 var hqlList = [];
 hqlList.push({
@@ -55,8 +60,8 @@ hqlList.push({
 
 hqlList.push({
 	hql: [hql3],
-	hqlParams: paramsHql3,
-	rowsFunction: fillRows3
+	hqlParams: paramsHql2,
+	rowsFunction: fillRows2
 });
 
 var cashAccountingAccount = new java.util.HashMap();
@@ -191,9 +196,11 @@ function fillRows2(iHeader, iHeaderMap, iData) {
 	row[iHeaderMap.get("originClosingBalance")] = helper.bigDecimal(0);
 	row[iHeaderMap.get("closingBalance")] = helper.bigDecimal(0);
 
-	row[iHeaderMap.get("creditMovement")] = iData[0].getAmount() * iData[0].getSign();
-	//row[iHeaderMap.get("debitMovement")] = debit;
-
+	if(iData[0].getSign()>0)
+		row[iHeaderMap.get("creditMovement")] = iData[0].getAmount() * iData[0].getSign();
+	else
+		row[iHeaderMap.get("debitMovement")] = iData[0].getAmount() * iData[0].getSign();
+	
 	row[iHeaderMap.get("excelIndex")] = helper.bigDecimal(2);
 	row[iHeaderMap.get("rowDescription")] = 'M';
 
@@ -215,57 +222,7 @@ function fillRows2(iHeader, iHeaderMap, iData) {
 	return rows;
 }
 
-function fillRows3(iHeader, iHeaderMap, iData) {
 
-	var row = java.lang.reflect.Array.newInstance(java.lang.Object, iHeader.length);
-
-	if (iData[0].getCurrency() != null)
-		row[iHeaderMap.get("currency")] = iData[0].getCurrency().getShortname();
-
-	if (iData[0].getCurrencyOrigin() != null)
-		row[iHeaderMap.get("origincurrency")] = iData[0].getCurrencyOrigin().getShortname();
-	if (iData[0].getFolder() != null)
-		row[iHeaderMap.get("folder")] = iData[0].getFolder().getShortname();
-
-	if (iData[0].getCpty() != null)
-		row[iHeaderMap.get("cpty")] = iData[0].getCpty().getShortname();
-
-	row[iHeaderMap.get("AccEntryInternalStatus")] = iData[0].getAccountingEntry().getApplicativeStatus().getInternalStatus();
-	row[iHeaderMap.get("accountingMouvementId")] = iData[0].getId();
-	if (iData[0].getAccountingEntry() != null)
-		row[iHeaderMap.get("accountingEntryId")] = iData[0].getAccountingEntry().getId();
-	row[iHeaderMap.get("accountingDate")] = iData[0].getAccountingEntry().getAccountingDate();
-	row[iHeaderMap.get("valueDate")] = iData[0].getValueDate();
-	row[iHeaderMap.get("accountingRate")] = iData[0].getRate();
-	row[iHeaderMap.get("description")] = iData[0].getDescription();
-
-	row[iHeaderMap.get("openingBalance")] = helper.bigDecimal(0);
-	row[iHeaderMap.get("originOpeningBalance")] = helper.bigDecimal(0);
-	row[iHeaderMap.get("originClosingBalance")] = helper.bigDecimal(0);
-	row[iHeaderMap.get("closingBalance")] = helper.bigDecimal(0);
-
-	row[iHeaderMap.get("debitMovement")] = iData[0].getAmount() * iData[0].getSign();
-
-	row[iHeaderMap.get("excelIndex")] = helper.bigDecimal(2);
-	row[iHeaderMap.get("rowDescription")] = 'M';
-
-	var cachedAccAccount = cashAccountingAccount.get(iData[0].getAccountingAccount().getShortname());
-	if (cachedAccAccount == null) {
-		cachedAccAccount = helper.eval(expressionContextShortname, iData[0].getAccountingAccount());
-		cashAccountingAccount.put(iData[0].getAccountingAccount().getShortname(), cachedAccAccount);
-	}
-	var cachedEntity = cashEntity.get(iData[0].getAccountingEntry().getEntity().getShortname());
-	if (cachedEntity == null) {
-		cachedEntity = helper.eval(expressionContextShortname, iData[0].getAccountingEntry().getEntity());
-		cashEntity.put(iData[0].getAccountingEntry().getEntity().getShortname(), cachedEntity);
-	}
-	completeRowFromMap(iHeaderMap, cachedAccAccount, row);
-	completeRowFromMap(iHeaderMap, cachedEntity, row);
-
-	var rows = new java.util.ArrayList();
-	rows.add(row);
-	return rows;
-}
 
 function getOpeningBalance(iParams) {
 	var iParamsHql = new java.util.HashMap();
@@ -351,7 +308,7 @@ function getClosingBalance(iParams) {
 	return [hql, iParamsHql];
 }
 
-function getAccountingMovementCredit(iParams) {
+function getAccountingMovement(iParams) {
 	var iParamsHql = new java.util.HashMap();
 
 	var hql = " from AccountingMovement accMvt ";
@@ -386,49 +343,6 @@ function getAccountingMovementCredit(iParams) {
 		hql += " and accMvt.accountingEntry.accountingDate >= :startDate";
 
 	}
-	hql += " and accMvt.sign >0 "
-	iParamsHql.put("startDate", helper.parseDate(iParams.get("startDate")));
-
-	iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
-
-	return [hql, iParamsHql];
-}
-function getAccountingMovementDebit(iParams) {
-	var iParamsHql = new java.util.HashMap();
-
-	var hql = " from AccountingMovement accMvt ";
-
-	hql += " where " + helper.buildListFilter("accMvt.accountingAccount.id", iParams.get("accountingAccountList"));
-	hql += " and " + helper.buildListFilter("accMvt.currency.id", iParams.get("currencyList"));
-	hql += " and " + helper.buildListFilter("accMvt.cpty.id", iParams.get("cptyList"));
-	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.entity.id", iParams.get("entityList"));
-	hql += " and " + helper.buildListFilter(" (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and accMvt.accountingAccount.id = fv.dataEntityId)", iParams.get("accountingNormList"));
-	hql += " and " + helper.buildListFilter("accMvt.originCurrency.id", iParams.get("originCurrencyList"));
-	//	hql+= "and ent.id in (select CODE from TABLE( MccFilter.grantedList('ENTITY', 'INTERNAL_SCOPE_FK', 'entity', 'children', [:scope]))) ";
-	if (iParams.get("accountingGroup") == "true") {
-		if (iParams.get("accountingNotInGroup") != "true")
-			hql += " and accMvt.cpty.isTrade = 1 ";
-	} else {
-		if (iParams.get("accountingNotInGroup") == "true")
-			hql += " and accMvt.cpty.isTrade = 0 ";
-		else
-			hql += " and 0 = 1 ";
-	}
-	if (StringUtils.isNotBlank(iParams.get("statusList")) == true)
-		hql += " and " + helper.buildListFilter("accMvt.accountingEntry.applicativeStatus.id", iParams.get("statusList"));
-	else
-		hql += " and accMvt.accountingEntry.applicativeStatus.internalStatus in ('validated') ";
-
-	if (iParams.get("dateType") == "V") {
-		hql += " and  accMvt.valueDate <= :endDate";
-		hql += " and  accMvt.valueDate >= :startDate";
-
-	} else {
-		hql += " and accMvt.accountingEntry.accountingDate <= :endDate";
-		hql += " and accMvt.accountingEntry.accountingDate >= :startDate";
-
-	}
-	hql += " and accMvt.sign <0 "
 	iParamsHql.put("startDate", helper.parseDate(iParams.get("startDate")));
 
 	iParamsHql.put("endDate", helper.parseDate(iParams.get("endDate")));
