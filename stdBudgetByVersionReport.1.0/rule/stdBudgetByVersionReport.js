@@ -45,24 +45,21 @@ if (params.get("importFormat") == 'true')
 else
 	var header = ["Id", "Entity", "Currency", "Status", "Category", "Analytic Type", "Entry Date", "Amount", "Commentary", "Cpty", "Strategy"];
 
-header = completeHeader(header,params); // complete with structure
-helper.log("INFO",header);
 controlParams(params);
 // Find the budget version related with parameters
 var budgetVersion = getBudgetVersion(params);
+header = completeHeader(header,params,budgetVersion); // complete with structure
+
 // Get the budget structure of the budget version
-helper.log("INFO",budgetVersion);
-var structId = getBudgetStructure(budgetVersion);
-helper.log("INFO",structId);
+var structId = budgetVersion.getBudget().getBudgetStructure().getId();
 var structurePathMap = new java.util.HashMap();
 var path = [];
 structurePathMap.put(structId, path);
 structurePathMap = structurePath(structurePathMap, structId);
-helper.log("INFO",structurePathMap);
 
 var hql = "from BudgetEntry bde  where bde.version.id = :budgetVersion ";
 var paramsHql = new java.util.HashMap();
-paramsHql.put("budgetVersion", budgetVersion);
+paramsHql.put("budgetVersion", budgetVersion.getId());
 if (StringUtils.isNotBlank(params.get("startDate"))) {
 	hql += " and bde.entryDate >= :startDate ";
 	paramsHql.put("startDate", helper.parseDate(params.get("startDate")));
@@ -80,21 +77,12 @@ hqlList.push({
 
 createHqlReport("stdBudget", hqlList, header);
 
-function completeHeader(iHeader,iParams) {
+function completeHeader(iHeader,iParams,iBudgetVersion) {
 	var atColumn = []
 	
-	if (StringUtils.isNotBlank(iParams.get("budget")) == true)	
- 	    var budget = helper.load(Packages.com.mccsoft.diapason.data.Budget, helper.parseLong(helper.getParamValue("budget")));	
- 	else
-	{			
-		var paramsHql = new java.util.HashMap();
-		var hql = "select bv.budget from  BudgetVersion bv where bv.id = :budgetVersionId " ; 
-		paramsHql.put("budgetVersionId",helper.parseLong(iParams.get("budgetVersionId"))) ; 
-		var hqlResult = helper.executeHqlQuery(hql, paramsHql);
-		/*helper.log("INFO",hqlResult)
-    	helper.log("INFO",hqlResult.get(0))*/
-		var budget = hqlResult.get(0);
-	}
+	var budget = iBudgetVersion.getBudget() ;
+	
+
 	var paramsLevel = new java.util.HashMap();
 	var DepthTree = getMaxLevel(paramsLevel, budget) - 1;
 	for (var i = new java.lang.Long(1); i <= DepthTree; i++) {
@@ -104,16 +92,7 @@ function completeHeader(iHeader,iParams) {
 	return iHeader;
 }
 
-function getBudgetStructure(iBudgetVersion) {
-	var paramsHql = new java.util.HashMap();
-	var hql = "SELECT bv.budget.budgetStructure.id from BudgetVersion bv";
-	hql += " where bv.id = :budgetVersionId";
-	paramsHql.put("budgetVersionId", iBudgetVersion);
-	helper.log("INFO",iBudgetVersion);
-	var hqlResult = helper.executeHqlQuery(hql, paramsHql);
-	//helper.log("INFO",hqlResult)
-	return hqlResult.get(0);
-}
+
 
 function structurePath(iStructurePathMap, parent) {
 	//iStructurePathMap contains the id and the full path of every structure 
@@ -199,7 +178,12 @@ function getBudgetVersion(iParams) {
 		hql += " and bde.version.validationDate = :validationDate";
 		var paramsHql = new java.util.HashMap();
 		paramsHql.put("validationDate", getValidationDate(iParams));
-		return helper.executeHqlQuery(hql, paramsHql).get(0);
+		var hqlResult = helper.executeHqlQuery(hql,paramsHql);
+		helper.log("INFO",hqlResult);
+		helper.log("INFO",hqlResult.get(0))
+		if (hqlResult.size() > 0)
+			return hqlResult.get(0);
+		
 	} else if (StringUtils.isNotBlank(iParams.get("budgetVersionId")) == false &&
 		StringUtils.isNotBlank(iParams.get("budgetDate")) == false) { //on prend la version current
 		var hql = "select bde.version from BudgetEntry bde";
@@ -216,7 +200,10 @@ function getBudgetVersion(iParams) {
 			helper.setError("BUDGETVERSIONCONTROL2");
 		}
 	} else {
-		return helper.parseLong(iParams.get("budgetVersionId"));
+	    var hql = "select bde.version from BudgetEntry bde where bde.version.id = :budgetVersionId";
+	    var paramsHql = new java.util.HashMap(); 
+		paramsHql.put("budgetVersionId",helper.parseLong(iParams.get("budgetVersionId")));
+		return helper.executeHqlQuery(hql,paramsHql).get(0) ;
 	}
 }
 
@@ -239,7 +226,10 @@ function getValidationDate(iParams) {
 		// No budget validate before the budget date
 		helper.setError("BUDGETDATECONTROL");
 	}
-	return hqlResult2.get(0);
+	else
+		helper.log("INFO",hqlResult2);
+		helper.log("INFO",hqlResult2.get(0));
+		return hqlResult2.get(0);
 }
 
 /**
@@ -249,10 +239,10 @@ function getValidationDate(iParams) {
 function controlParams(iParams){
 	if(params.get("budgetVersionId")==null){
 		if(params.get("budget")==null || params.get("entity")==null || params.get("currency")==null)
-			helper.setError("BUDGETCHOICECONTROL")
+			helper.setError("BUDGETCHOICECONTROL");
 	}
 	else{
 		if(params.get("budget") || params.get("entity") || params.get("currency"))
-			helper.setError("BUDGETVERSIONCONTROL")
+			helper.setError("BUDGETCHOICE2CONTROL")
 	}
 }
