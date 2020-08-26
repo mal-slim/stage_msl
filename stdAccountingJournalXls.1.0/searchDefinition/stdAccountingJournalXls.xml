@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-  <searchDefinition name="accountingJournalXls" shortname="stdAccountingJournalXls" active="true" isSearch="false" isReport="true" customHql="false" hql=" and ::accountingDateFrom and ::accountingDateTo and ::lastUpdateFrom and ::lastUpdateTo and ::processDateFrom and ::processDateTo and ::exportDateFrom and ::exportDateTo and ::applicativeStatus and ::accountingEntryIdFrom and ::accountingEntryIdTo and ::entity and ::folder and ::cpty and ::accountingCurrency and ::currencyOrigin and ::accountingaccount and ::amountFrom and ::amountTo and ::description and ::tradeId and ::movementId and ::processId and ::onlyIsolatedAccountingEntry">
+  <searchDefinition name="accountingJournalXls" shortname="stdAccountingJournalXls" active="true" isSearch="false" isReport="true" customHql="false" hql=" and ::accountingDateFrom and ::accountingDateTo and ::lastUpdateFrom and ::lastUpdateTo and ::processDateFrom and ::processDateTo and ::exportDateFrom and ::exportDateTo and ::accountingNormList and ::applicativeStatus and ::accountingEntryIdFrom and ::accountingEntryIdTo and ::entity and ::folder and ::cpty and ::accountingCurrency and ::currencyOrigin and ::accountingaccount and ::amountFrom and ::amountTo and ::description and ::tradeId and ::movementId and ::processId and ::onlyIsolatedAccountingEntry">
     <scope name="Root"/>
     <dataEntity dataType="ENTITY" shortname="accountingMovement"/>
     <diapasonPackage version="1.0" shortname="stdAccountingJournalXls"/>
@@ -59,6 +59,15 @@
         <localizedName locale="fr_FR" category="searchFilter" name="Date d'export au"/>
         <localizedName locale="es_ES" category="searchFilter" name="Fecha de exportación hasta"/>
       </localizedNames>
+    </filter>
+    <filter path="accountingAccount.accountingAccountAddInfo/accountingNorm" type="entity" active="true" name="Accounting Norm" shortname="accountingNormList" required="false" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
+      <dataEntity dataType="ENTITY" shortname="accountingMovement"/>
+      <localizedNames class="java.util.ArrayList">
+        <localizedName locale="en_US" category="searchFilter" name="accounting Norm"/>
+        <localizedName locale="fr_FR" category="searchFilter" name="norme du compte"/>
+      </localizedNames>
+      <extraInfo>&lt;dictionary name='accountingNorm' type='USER' iconType='USER' serviceName='customDictionary' serviceExtraParams='&amp;amp;id=85' dataExpression='customDictionaryValue' labelField='@name' description='Acccounting norm' id='85' shortname='accountingNorm'/&gt;</extraInfo>
+      <field formShortname="accountingAccountAddInfo" shortname="accountingNorm"/>
     </filter>
     <filter path="applicativeStatus" type="entity" active="true" name="Applicative status" shortname="applicativeStatus" required="false" hql="$ROOT_ENTITY.applicativeStatus.id in (:applicativeStatus)" operator="in" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
       <dataEntity dataType="ENTITY" shortname="accountingMovement"/>
@@ -179,9 +188,9 @@
     <filter path="longValue" type="number" active="true" name="Process Id" shortname="processId" required="false" hql="$ROOT_ENTITY.longValue = :processId" operator="=" showInactiveItems="false" freeFilter="true" singleSelection="false" returnShortname="false" monthSelection="false" newLine="true">
       <dataEntity dataType="ENTITY" shortname="accountingMovement"/>
       <localizedNames class="java.util.ArrayList">
-        <localizedName locale="es_ES" category="searchFilter" name="Identificador tratamiento"/>
         <localizedName locale="en_US" category="searchFilter" name="Process Id"/>
         <localizedName locale="fr_FR" category="searchFilter" name="Identifiant du traitement"/>
+        <localizedName locale="es_ES" category="searchFilter" name="Identificador tratamiento"/>
       </localizedNames>
       <extraInfo>long</extraInfo>
     </filter>
