@@ -293,6 +293,8 @@ function getHqlAccountingMovement(iParams) {
 	hql += " and " + helper.buildListFilter("accMvt.currencyOrigin.id", iParams.get("currencyOrigin"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingAccount.id", iParams.get("accountingaccount"));
 	hql += " and " + helper.buildListFilter("accMvt.accountingEntry.applicativeStatus.id", iParams.get("applicativeStatus"));
+	hql += " and " + helper.buildListFilter(" (select fv.customDictionaryValue.id from FieldValue fv where fv.field.id = " + helper.getUserDataFieldDefinition("accountingAccountAddInfo.accountingNorm").getId() + " and fv.dataEntityType = 'accountingAccount' and accMvt.accountingAccount.id = fv.dataEntityId)", params.get("accountingNormList"));
+
 
 	if (iParams.get("accountingEntryIdFrom") != null) {
 		hql += " and  accMvt.accountingEntry.id >= :accountingEntryIdFrom";
