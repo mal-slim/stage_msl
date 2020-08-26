@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <expressionContext active="true" shortname="stdForexListing_fxOption" name="Standard forex option listing" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="kl" captureDate="2016-01-22T10:31:18.235Z" version="18">
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdForexListing"/>
+  </expressionContext>
+  <expressionContext active="true" shortname="stdForexListing_fxForward" name="Standard forex forward listing" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="kl" captureDate="2016-01-22T10:31:18.030Z" version="33">
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdForexListing"/>
+  </expressionContext>
+  <expressionContext active="true" shortname="stdForexListing_fxSpot" name="Standard forex spot listing" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="kl" captureDate="2016-01-22T10:31:18.383Z" version="17">
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdForexListing"/>
+  </expressionContext>
+  <expressionContext active="true" shortname="stdForexListing_fxSwap" name="Standard forex swap listing" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="kl" captureDate="2016-01-22T10:31:18.500Z" version="16">
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdForexListing"/>
+  </expressionContext>
+</list>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <expressionContext active="true" shortname="stdForexListing_fxSpot" name="Standard forex spot listing" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="kl" captureDate="2016-01-22T10:31:18.383Z" version="17">
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdForexListing"/>
+    <expression shortname="applicativeStatus" expression="/applicativeStatus/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="externalReference" expression="/externalReference" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="entity" expression="/entity/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="folder" expression="/folder/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="cpty" expression="/cpty/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="accountCptyCurrency2" expression="/accountCptyCur2/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="remainingAmount1" expression="/remainingAmount1" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="remainingAmount2" expression="/remainingAmount2" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="summary" expression="/summary" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="id" expression="/id" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="reference" expression="/reference" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="tradeType" expression="/tradeType/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="isRequest" expression="/isRequest" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="isExternal" expression="/isExternal" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="actionStatus" expression="/actionStatus" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="captureDate" expression="/captureDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="tradeDate" expression="/tradeDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="valueDate" expression="/valueDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="currency1" expression="/currency1/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="currency2" expression="/currency2/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="amount1" expression="/amount1[/tradeType/direction = 1]| /amount1*(-1)" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="amount2" expression="/amount2*(-1)[/tradeType/direction = 1]| /amount2" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="accountCurrency2" expression="/accountCur2/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="accountCptyCurrency" expression="/accountCptyCur1/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="accountCurrency1" expression="/accountCur1/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="basePair" expression="/basePair" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="baseRate" expression="/baseRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="clientRate" expression="/clientRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="margin" expression="/margin" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="spotRate" expression="/spotRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="feePaymentDate" expression="/feePaymentDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="feeAmount" expression="/feeAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="parentTrade" expression="/parentTrade/id" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="feeAmount" expression="/feeAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+    <expression shortname="feeCurrency" expression="/feeCurrency/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxSpot"/>
+    </expression>
+  </expressionContext>
+</list>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <expressionContext active="true" shortname="stdForexListing_fxOption" name="Standard forex option listing" status="actual" isUpdatable="true" lastUpdateUser="msl1" captureUser="kl" captureDate="2016-01-22T10:31:18.235Z" version="18">
+    <scope name="Root"/>
+    <diapasonPackage version="1.0" shortname="stdForexListing"/>
+    <expression shortname="feeCurrency" expression="/feeCurrency/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="premiumFlat" expression="/premiumFlat" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="premiumCurrency" expression="/premiumCurrency/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="premiumAmount" expression="/premiumAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="optionType" expression="'American'[/optionType = 0]|'European'" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="knockRate" expression="/knockRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="fxRate" expression="/fxRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="excerciseType" expression="/excerciseType" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="excerciseRate" expression="/excerciseRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="strategy" expression="/strategy/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="entity" expression="/entity/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="valueDate" expression="/valueDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="tradeDate" expression="/tradeDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="captureDate" expression="/captureDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="externalReference" expression="/externalReference" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="applicativeStatus" expression="/applicativeStatus/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="maturityDate" expression="/maturityDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="summary" expression="/summary" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="strike" expression="/strike" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="settlementDate" expression="/settlementDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="rebateCurrency" expression="/rebateCurrency" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="rebateAmount" expression="/rebateAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="premiumRate" expression="/premiumRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="premiumPaymentDate" expression="/premiumPaymentDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="barrierType" expression="'American'[/barrierType = 0]|'Europeen'" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="barrierUp" expression="/barrierUp" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="folder" expression="/folder/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="cpty" expression="/cpty/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="currency1" expression="/currency1/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="currency2" expression="/currency2/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="accountCurrency2" expression="/accountCur2/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="accountCptyCurrency" expression="/accountCptyCur1/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="amount1" expression="/amount1[/tradeType/direction = 1]| /amount1*(-1)" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="amount2" expression="/amount2*(-1)[/tradeType/direction = 1]| /amount2" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="excerciseAmount" expression="/excerciseAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="excerciseCurrency" expression="/exerciseCurrency/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="callPut" expression="'Call'[/callPut = 0]|'Put'" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="barrierDown" expression="/barrierDown" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="accountPremium" expression="/accountPremium/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="remainingAmount2" expression="/remainingAmount2" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="remainingAmount1" expression="/remainingAmount1" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="accountCptyCurrency2" expression="/accountCptyCur2/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="accountCurrency1" expression="/accountCur1/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="actionStatus" expression="/actionStatus" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="isExternal" expression="/isExternal" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="isRequest" expression="/isRequest" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="tradeType" expression="/tradeType/shortname" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="reference" expression="/reference" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="id" expression="/id" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="clientRate" expression="/clientRate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="margin" expression="/margin" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="feePaymentDate" expression="/feePaymentDate" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="feeAmount" expression="/feeAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="parentTrade" expression="/parentTrade/id" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+    <expression shortname="feeAmount" expression="/feeAmount" isPointer="false">
+      <dataEntity dataType="ENTITY" shortname="fxOption"/>
+    </expression>
+  </expressionContext>
+</list>
